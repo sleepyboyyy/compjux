@@ -9,20 +9,12 @@ import { useSignIn } from "../../hooks/useSignIn";
 
 function Login() {
     // destructured components
-    const {currentUser} = useContext(AuthContext);
+    //const {state} = useContext(AuthContext);
     const { signUserIn } = useSignIn();
 
     // state & navigate
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const navigate = useNavigate();
-
-    // Check to see if user exists
-    useEffect(() => {
-        if (currentUser) {
-            navigate('/account_settings');
-        }
-    }, [currentUser]);
 
     // Event Handlers
     // Handle submit

@@ -4,21 +4,23 @@ import './ClientDashboard.css'
 // hooks
 import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
+import {useSignOut} from "../../hooks/useSignOut";
 
 function ClientDashboard() {
     // destructured components
     // current user context
-    const {currentUser, signOut} = useContext(AuthContext);
+    const { state} = useContext(AuthContext);
+    const { signUserOut } = useSignOut();
 
     // Handlers
     // Handle Signout Click
-    const handleSignoutClick = () => {
-        signOut();
+    const handleSignoutClick = async () => {
+        await signUserOut();
     }
 
     return (
         <div>
-            <h1>Dashboard of user {currentUser?.displayName}</h1>
+            <h1>Dashboard of user {state.user?.displayName}</h1>
             <button className="btn btn-dark" onClick={handleSignoutClick}>Sign Out</button>
         </div>
     );

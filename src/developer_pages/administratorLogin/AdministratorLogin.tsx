@@ -6,26 +6,8 @@ import {useDocument} from "../../hooks/useDocument";
 
 
 function AdministratorLogin() {
-    const { currentUser } = useContext(AuthContext);
-    const { document } = useDocument('users', currentUser?.uid);
-    const navigate = useNavigate();
-
-    // Check to see if user exists
-    useEffect(() => {
-        if (currentUser) {
-            // Check to see if document exists
-            if (document) {
-                // If the currenUser has a role of "admin" navigate to dashboard
-                if (document.role === "admin") {
-                    navigate('/adminDashboard');
-                }
-                // If the role is anything else, block access
-                else {
-                    navigate('/administratorLogin');
-                }
-            }
-        }
-    }, [currentUser, document]);
+    //const { state } = useContext(AuthContext);
+    //
 
     // State Management
     const [devEmail, setDevEmail] = useState("");

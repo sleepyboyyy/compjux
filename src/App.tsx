@@ -2,9 +2,9 @@ import './App.css';
 
 import {
     createBrowserRouter,
-    createRoutesFromElements, Navigate,
+    createRoutesFromElements,
     Route,
-    RouterProvider, Routes, useNavigate
+    RouterProvider,
 } from 'react-router-dom'
 
 // bootstrap
@@ -25,16 +25,19 @@ import CreateAdministrator from "./developer_pages/createAdministrator/CreateAdm
 import AdminDashboard from "./developer_pages/adminDashboard/AdminDashboard";
 
 // components
-import RoutedAuthProvider from "./components/developer_components/RoutedAuthProvider";
-import RequiredAuth from "./components/developer_components/RequiredAuth";
-import ValidateClient from "./components/client_components/ValidateClient";
 import AdminStorage from "./developer_pages/adminStorage/AdminStorage";
 
+
+import {useAuthContext} from "./hooks/useAuthContext";
+import ProtectedRoute from "./components/developer_components/ProtectedRoute";
+
 function App() {
+    const { state } = useAuthContext();
+
     const router = createBrowserRouter(
         createRoutesFromElements(
             <>
-                <Route element={<RoutedAuthProvider />}>
+                    {/*TODO: create "admin only" protected wrapper component*/}
                     <Route
                         path="administratorLogin"
                         element={ <AdministratorLogin /> }
@@ -45,44 +48,30 @@ function App() {
                     />
                     <Route
                         path="adminDashboard"
-                        element={
-                            <RequiredAuth>
-                                <AdminDashboard/>
-                            </RequiredAuth>
-                        }
+                        element={ state.user ? <AdminDashboard/> : <AdministratorLogin /> }
                     />
                     <Route
                         path="admin_storage"
-                        element={
-                            <RequiredAuth>
-                                <AdminStorage/>
-                            </RequiredAuth>
-                        }
+                        element={ <AdminStorage/> }
                     />
-                </Route>
 
-                <Route element={<RoutedAuthProvider />}>
                     <Route path="/" element={<Rootlayout/>}>
                         <Route index element={<Home/>}/>
                         <Route path="login" element={<Login/>}/>
                         <Route path="signup" element={<Signup/>}/>
                         <Route
                             path="account_settings"
-                            element={
-                                <ValidateClient>
-                                    <ClientDashboard />
-                                </ValidateClient>
-                            }
+                            element={ <ClientDashboard /> }
                         />
                     </Route>
-                </Route>
+
             </>
         )
     )
 
     return (
         <div className="App">
-            <RouterProvider router={router} />
+            { state.authIsReady ? <RouterProvider router={router} /> : <div>Loading...</div> }
         </div>
     );
 }

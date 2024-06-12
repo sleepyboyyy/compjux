@@ -1,18 +1,20 @@
 import React, {useContext} from 'react';
 import {AuthContext} from "../../context/AuthContext";
+import {useSignOut} from "../../hooks/useSignOut";
 
 function AdminDashboard() {
-    const { signOut, currentUser } = useContext(AuthContext);
+    const { state } = useContext(AuthContext);
+    const { signUserOut } = useSignOut();
 
     // Handlers
     // handleLogout
-    const handleLogout = () => {
-        signOut();
+    const handleLogout = async () => {
+        await signUserOut();
     }
 
     return (
         <div>
-            <h2>Welcome {currentUser?.displayName}</h2>
+            <h2>Welcome {state.user?.displayName}</h2>
             <button onClick={handleLogout} className="btn btn-dark">Logout</button>
         </div>
     );

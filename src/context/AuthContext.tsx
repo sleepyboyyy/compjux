@@ -1,12 +1,7 @@
-import React, {createContext, ReactNode, useEffect, useReducer, useState} from "react";
-import {User} from "firebase/auth";
-import {useNavigate} from "react-router-dom";
+import React, { createContext, ReactNode, useEffect, useReducer } from "react";
+import { User } from "firebase/auth";
 import { userStateListener } from "../firebase/firebase";
-import {useSignOut} from "../hooks/useSignOut";
-
-// TODO: go back to using useReducer and reset all auth guards
-// TODO: authIsRead is a needed property to wait out auth setup
-// TODO: good luck :)
+import {unsubscribe} from "node:diagnostics_channel";
 
 // Interfaces
 // AuthProvider children props
@@ -71,8 +66,6 @@ export const AuthProvider = ({ children }: Props) => {
         authIsReady: false,
     } as authState)
 
-    console.log("State: ", state);
-
     // Listen to auth state change
     useEffect(() => {
         const unsubscribe = userStateListener((user) => {
@@ -80,6 +73,9 @@ export const AuthProvider = ({ children }: Props) => {
             unsubscribe();
         });
     }, [])
+
+    console.log("State: ", state);
+    console.log("render");
 
     // return Auth Provider
     return (
