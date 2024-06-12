@@ -1,0 +1,48 @@
+.carousel-img {
+    height: 550px;
+    object-fit: cover;
+}
+
+.slider-caption {
+    width: 350px;
+    padding: 25px;
+    position: absolute;
+    top: 50%;
+    left: 13.5%;
+    transform: translateY(-50%);
+}
+
+.slider-caption>a {
+    background: orangered;
+    color: #f1f1f1;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 4px;
+    padding: 6px 16px;
+}
+
+.slider-caption>a:hover {
+    background: #cc3600;
+    transition: all ease-in 100ms;
+}
+
+.slider-caption h2 {
+    font-size: 1.4rem;
+    font-weight: 900;
+    color: #f1f1f1;
+}
+
+.slider-caption p {
+    color: #f1f1f1;
+    text-shadow: 2px 1px 5px rgba(0,0,0,0.35);
+    font-size: .7em;
+}
+
+.slider-caption p>span {
+    color: orangered;
+}
+
+.slider-price {
+    font-weight: 900;
+    color: #fff;
+}
