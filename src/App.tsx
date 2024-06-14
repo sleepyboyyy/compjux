@@ -30,6 +30,7 @@ import AdminStorage from "./developer_pages/adminStorage/AdminStorage";
 
 import {useAuthContext} from "./hooks/useAuthContext";
 import ProtectedRoute from "./components/developer_components/ProtectedRoute";
+import AdminLoginProtection from "./components/developer_components/AdminLoginProtection";
 
 function App() {
     const { state } = useAuthContext();
@@ -41,7 +42,11 @@ function App() {
                     {/*TODO: create "admin only" protected wrapper component*/}
                     <Route
                         path="administratorLogin"
-                        element={ <AdministratorLogin /> }
+                        element={
+                            <AdminLoginProtection>
+                                <AdministratorLogin />
+                            </AdminLoginProtection>
+                        }
                     />
                     <Route
                         path="createAdmin"
