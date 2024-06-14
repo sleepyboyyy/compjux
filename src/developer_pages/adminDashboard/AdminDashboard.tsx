@@ -1,6 +1,7 @@
 import React, {useContext} from 'react';
 import {AuthContext} from "../../context/AuthContext";
 import {useSignOut} from "../../hooks/useSignOut";
+import AdminNavigation from "../../components/developer_components/AdminNavigation/AdminNavigation";
 
 function AdminDashboard() {
     const { state } = useContext(AuthContext);
@@ -14,8 +15,8 @@ function AdminDashboard() {
 
     return (
         <div>
-            <h2>Welcome {state.user?.displayName}</h2>
-            <button onClick={handleLogout} className="btn btn-dark">Logout</button>
+            <AdminNavigation />
+            <button onClick={handleLogout} className="btn btn-dark mb-2">Logout</button>
         </div>
     );
 }

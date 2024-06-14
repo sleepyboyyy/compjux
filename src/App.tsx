@@ -2,7 +2,7 @@ import './App.css';
 
 import {
     createBrowserRouter,
-    createRoutesFromElements,
+    createRoutesFromElements, Navigate,
     Route,
     RouterProvider,
 } from 'react-router-dom'
@@ -31,6 +31,7 @@ import AdminStorage from "./developer_pages/adminStorage/AdminStorage";
 import {useAuthContext} from "./hooks/useAuthContext";
 import ProtectedRoute from "./components/developer_components/ProtectedRoute";
 import AdminLoginProtection from "./components/developer_components/AdminLoginProtection";
+import ValidateClient from "./components/client_components/ValidateClient";
 
 function App() {
     const { state } = useAuthContext();
@@ -62,16 +63,24 @@ function App() {
                     />
                     <Route
                         path="admin_storage"
-                        element={ <AdminStorage/> }
+                        element={
+                        <ProtectedRoute>
+                            <AdminStorage/>
+                        </ProtectedRoute>
+                        }
                     />
 
                     <Route path="/" element={<Rootlayout/>}>
                         <Route index element={<Home/>}/>
-                        <Route path="login" element={<Login/>}/>
-                        <Route path="signup" element={<Signup/>}/>
+                        <Route path="login" element={ state.user ? <Navigate to="/account_settings" replace /> : <Login/> }/>
+                        <Route path="signup" element={ state.user ? <Navigate to="/account_settings" replace /> : <Signup/> }/>
                         <Route
                             path="account_settings"
-                            element={ <ClientDashboard /> }
+                            element={
+                            <ValidateClient>
+                                <ClientDashboard />
+                            </ValidateClient>
+                            }
                         />
                     </Route>
 

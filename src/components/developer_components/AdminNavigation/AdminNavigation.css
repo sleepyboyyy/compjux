@@ -1,0 +1,44 @@
+.adminNavigation-container {
+    display: flex;
+
+}
+
+.adminNavigation-horizontal {
+    height: 142px;
+    width: calc(100% - 212px);
+    background-color: var(--softWhite-color);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.adminNavigation-horizontal_welcomeText {
+    height: 100%;
+    margin-left: 64px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.adminNavigation-horizontal_welcomeText h3 {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+.adminNavigation-horizontal_welcomeText p {
+    font-size: 12px;
+    font-weight: 400;
+    color: var(--hardGray-color);
+}
+
+.adminNavigation-horizontal_accountContent {
+    margin-right: 64px;
+    color: var(--primary-color);
+}
+
+.adminNavigation-vertical {
+    width: 212px;
+    height: 100vh;
+    background-color: var(--softWhite-color);
+}
