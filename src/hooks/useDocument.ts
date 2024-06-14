@@ -7,6 +7,7 @@ import {ClientData} from "../pages/Signup/Signup";
 export const useDocument = (collection:string, id:string | undefined) => {
     const [document, setDocument] = useState<AdminData | ClientData | null>(null);
     const [error, setError] = useState<string | null>(null);
+    const [isLoading, setIsLoading] = useState<boolean>(true);
 
     useEffect(() => {
 
@@ -37,14 +38,18 @@ export const useDocument = (collection:string, id:string | undefined) => {
                 } else {
                     setError("No such document exists");
                 }
+                setIsLoading(false);
             }, (err) => {
                 setError("Failed to get document");
+                setIsLoading(false);
                 console.log(err.message);
             });
 
             return () => unsub();
         }
+
+        setIsLoading(false);
     }, [collection, id]);
 
-    return { document, error }
+    return { document, isLoading, error }
 }

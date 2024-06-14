@@ -1,27 +1,32 @@
-import { useContext, useEffect } from 'react';
+import { useContext } from 'react';
 import { AuthContext } from "../../context/AuthContext";
-import {Navigate, Outlet, Route, useNavigate} from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { useDocument } from "../../hooks/useDocument";
-
-// Todo: create "admin only" protected wrapper component
 
 function ProtectedRoute({children}: { children:JSX.Element ; }) {
     const { state } = useContext(AuthContext);
-    const { document } = useDocument('users', state.user?.uid);
-    const navigate = useNavigate();
+    const { document, isLoading } = useDocument('users', state.user?.uid)
 
-    useEffect(() => {
-        if (state.user) {
-            if (document) {
-                if (document.role !== "admin") {
-                    navigate("/");
-                    return;
-                }
-            }
+    if (state.user) {
+        // Wait for document to load
+        if (isLoading) {
+            return (<div>Loading...</div>);
         }
-    }, [state.user, document])
 
-    return (children);
+        // Navigate depending on role logic
+        if (document) {
+            if (document.role === "admin") {
+                return children;
+            } else {
+                return <Navigate to="/" replace />;
+            }
+        } else {
+            return <Navigate to="/" replace />;
+        }
+    }
+
+    // If user doesn't exist go to homepage
+    return <Navigate to="/" replace />;
 }
 
 export default ProtectedRoute;

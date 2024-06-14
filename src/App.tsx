@@ -34,6 +34,7 @@ import ProtectedRoute from "./components/developer_components/ProtectedRoute";
 function App() {
     const { state } = useAuthContext();
 
+
     const router = createBrowserRouter(
         createRoutesFromElements(
             <>
@@ -48,7 +49,11 @@ function App() {
                     />
                     <Route
                         path="adminDashboard"
-                        element={ state.user ? <AdminDashboard/> : <AdministratorLogin /> }
+                        element={
+                            <ProtectedRoute>
+                                <AdminDashboard/>
+                            </ProtectedRoute>
+                        }
                     />
                     <Route
                         path="admin_storage"
