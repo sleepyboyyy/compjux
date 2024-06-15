@@ -1,6 +1,5 @@
 .adminNavigation-container {
     display: flex;
-
 }
 
 .adminNavigation-horizontal {
@@ -10,6 +9,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    border-bottom: 1px solid rgba(97, 97, 97, 0.65);
 }
 
 .adminNavigation-horizontal_welcomeText {
@@ -41,4 +41,82 @@
     width: 212px;
     height: 100vh;
     background-color: var(--softWhite-color);
+    border-right: 1px solid rgba(97, 97, 97, 0.65);
+}
+
+.adminNavigation-vertical_logo {
+    height: 142px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.adminNavigation-vertical_logo p{
+    font-size: 18px;
+    font-weight: 400;
+    color: var(--primary-color);
+    margin-bottom: 0;
+}
+
+.adminNavigation-vertical_logo_image_container {
+    text-align: center;
+    width: 100%;
+    height: 80%;
+}
+.adminNavigation-vertical_logo_image_container img {
+    width: 35%;
+    height: 80%;
+    margin-top: 8px;
+}
+
+.adminNavigation-vertical_main_navigation {
+    width: 184px;
+    margin: 0 auto;
+}
+
+.adminNavigation-vertical_main_navigation ul {
+    padding-left: 0;
+    width: 100%;
+}
+
+.adminNavigation-vertical_main_navigation ul li  {
+    list-style: none;
+    width: 100%;
+    display: flex;
+    gap: 8px;
+    color: var(--secondary-color);
+    padding: 6px 12px;
+    border-radius: 8px;
+    margin-bottom: 12px;
+}
+
+.adminNavigation-vertical_main_navigation ul li:hover {
+    background-color: var(--primary-color);
+    color: var(--softWhite-color);
+}
+
+.adminNavigation-vertical_main_navigation ul li a {
+    margin-bottom: 0;
+    font-size: 16px;
+    color: var(--secondary-color);
+    text-decoration: none;
+}
+
+.adminNavigation-vertical_main_navigation ul li:has(a.active) {
+    background-color: var(--primary-color);
+    color: var(--softWhite-color);
+}
+
+.adminNavigation-vertical_main_navigation ul li a.active {
+    color: var(--softWhite-color);
+}
+
+.menu_link_image_container {
+
+}
+
+.adminNavigation-vertical_main_navigation_menuItem_image {
+    color: var(--secondary-color);
 }

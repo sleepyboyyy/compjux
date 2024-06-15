@@ -6,6 +6,12 @@
   --hardGray-color: #58585A;
 }
 
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
   font-family: Roboto, sans-serif;

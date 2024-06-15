@@ -1,9 +1,11 @@
 import React from 'react';
+import AdminNavigation from "../../components/developer_components/AdminNavigation/AdminNavigation";
 
 function AdminStorage() {
     return (
         <div>
-            <h1>Admin Storage</h1>
+            <AdminNavigation></AdminNavigation>
+            <h2>Admin Storage</h2>
         </div>
     );
 }
