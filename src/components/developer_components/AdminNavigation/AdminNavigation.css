@@ -42,6 +42,9 @@
     height: 100vh;
     background-color: var(--softWhite-color);
     border-right: 1px solid rgba(97, 97, 97, 0.65);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .adminNavigation-vertical_logo {
@@ -73,50 +76,55 @@
 
 .adminNavigation-vertical_main_navigation {
     width: 184px;
-    margin: 0 auto;
+    margin: 40px auto 0 auto;
 }
 
-.adminNavigation-vertical_main_navigation ul {
+.adminNavigation-vertical_navigation_container ul {
     padding-left: 0;
     width: 100%;
 }
 
-.adminNavigation-vertical_main_navigation ul li  {
+.adminNavigation-vertical_navigation_container ul li  {
     list-style: none;
-    width: 100%;
-    display: flex;
-    gap: 8px;
     color: var(--secondary-color);
     padding: 6px 12px;
     border-radius: 8px;
     margin-bottom: 12px;
 }
 
-.adminNavigation-vertical_main_navigation ul li:hover {
-    background-color: var(--primary-color);
-    color: var(--softWhite-color);
-}
-
-.adminNavigation-vertical_main_navigation ul li a {
+.adminNavigation-vertical_navigation_container ul li a p {
     margin-bottom: 0;
     font-size: 16px;
-    color: var(--secondary-color);
-    text-decoration: none;
 }
 
-.adminNavigation-vertical_main_navigation ul li:has(a.active) {
+.adminNavigation-vertical_navigation_container ul li a {
+    color: var(--secondary-color);
+    text-decoration: none;
+    width: 100%;
+    display: flex;
+    gap: 8px;
+}
+
+.adminNavigation-vertical_navigation_container ul li:hover {
+    background-color: var(--primary-color);
+    transition: all ease-in 150ms;
+}
+
+.adminNavigation-vertical_navigation_container ul li:hover a {
+    color: var(--softWhite-color);
+}
+
+.adminNavigation-vertical_navigation_container ul li:has(a.active) {
     background-color: var(--primary-color);
     color: var(--softWhite-color);
 }
 
-.adminNavigation-vertical_main_navigation ul li a.active {
+.adminNavigation-vertical_navigation_container ul li a.active {
     color: var(--softWhite-color);
 }
 
-.menu_link_image_container {
-
+.adminNavigation-vertical_bottom_navigation {
+    width: 184px;
+    margin: 0 auto 40px auto;
 }
 
-.adminNavigation-vertical_main_navigation_menuItem_image {
-    color: var(--secondary-color);
-}
