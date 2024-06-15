@@ -24,7 +24,7 @@ import {Link, NavLink} from "react-router-dom";
 
 //TODO: finish vertical navigation and add Outlet logic
 
-function AdminNavigation() {
+function AdminNavigation({ children }: { children: JSX.Element}) {
     const { state } = useAuthContext();
 
     return (
@@ -114,17 +114,23 @@ function AdminNavigation() {
                 </div>
             </nav>
 
-            <nav className="adminNavigation-horizontal">
-                <div className="adminNavigation-horizontal_welcomeText">
-                    <h3 className="mb-0">Good Morning {state.user?.displayName}</h3>
-                    <p className="mb-0">Welcome to your Dashboard</p>
+            <div className="adminNavigation-main_content">
+                <nav className="adminNavigation-horizontal">
+                    <div className="adminNavigation-horizontal_welcomeText">
+                        <h3 className="mb-0">Good Morning {state.user?.displayName}</h3>
+                        <p className="mb-0">Welcome to your Dashboard</p>
+                    </div>
+                    <div className="adminNavigation-horizontal_accountContent">
+                        <MessageIcon/>
+                        <NotificationsNoneIcon sx={{ml: 0.5}}/>
+                        <AccountCircleIcon sx={{fontSize: 48, ml: 1}}/>
+                    </div>
+                </nav>
+
+                <div className="adminNavigation-non_navigational_content">
+                    {children}
                 </div>
-                <div className="adminNavigation-horizontal_accountContent">
-                    <MessageIcon/>
-                    <NotificationsNoneIcon sx={{ml: 0.5}}/>
-                    <AccountCircleIcon sx={{fontSize: 48, ml: 1}}/>
-                </div>
-            </nav>
+            </div>
         </div>
     );
 }

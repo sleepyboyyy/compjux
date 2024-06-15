@@ -4,8 +4,9 @@ import AdminNavigation from "../../components/developer_components/AdminNavigati
 function AdminStorage() {
     return (
         <div>
-            <AdminNavigation></AdminNavigation>
-            <h2>Admin Storage</h2>
+            <AdminNavigation>
+                <h2>Admin Storage</h2>
+            </AdminNavigation>
         </div>
     );
 }

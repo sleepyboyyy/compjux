@@ -1,10 +1,10 @@
 .adminNavigation-container {
     display: flex;
+    flex-wrap: wrap;
 }
 
 .adminNavigation-horizontal {
     height: 142px;
-    width: calc(100% - 212px);
     background-color: var(--softWhite-color);
     display: flex;
     align-items: center;
@@ -128,3 +128,14 @@
     margin: 0 auto 40px auto;
 }
 
+.adminNavigation-main_content {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.adminNavigation-non_navigational_content {
+    flex-grow: 1;
+    padding: 20px;
+    background-color: var(--softWhite-color);
+}
