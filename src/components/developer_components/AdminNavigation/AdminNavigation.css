@@ -1,6 +1,7 @@
 .adminNavigation-container {
     display: flex;
     flex-wrap: wrap;
+    position: relative;
 }
 
 .adminNavigation-horizontal {
@@ -45,6 +46,7 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    position: fixed;
 }
 
 .adminNavigation-vertical_logo {
@@ -132,6 +134,7 @@
     display: flex;
     flex-direction: column;
     flex-grow: 1;
+    margin-left: 212px;
 }
 
 .adminNavigation-non_navigational_content {
@@ -139,3 +142,4 @@
     padding: 20px;
     background-color: var(--softWhite-color);
 }
+

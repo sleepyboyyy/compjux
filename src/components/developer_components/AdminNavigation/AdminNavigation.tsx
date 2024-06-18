@@ -129,6 +129,7 @@ function AdminNavigation({ children }: { children: JSX.Element}) {
 
                 <div className="adminNavigation-non_navigational_content">
                     {children}
+                    <div className="test"></div>
                 </div>
             </div>
         </div>
