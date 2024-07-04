@@ -14,7 +14,7 @@ function AdminDashboard() {
     }
 
     return (
-        <AdminNavigation>
+        <AdminNavigation page="DASHBOARD">
             <button onClick={handleLogout} className="btn btn-dark mb-2">Logout</button>
         </AdminNavigation>
     );
