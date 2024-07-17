@@ -67,6 +67,7 @@ function AdminNavigation(props: Props) {
         headerDispatch({ type: props.page })
     }, []);
 
+    document.body.style.backgroundColor = '#E6E6E6';
     console.log(textHeader.currentPage);
 
     return (

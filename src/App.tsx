@@ -32,6 +32,7 @@ import {useAuthContext} from "./hooks/useAuthContext";
 import ProtectedRoute from "./components/developer_components/ProtectedRoute";
 import AdminLoginProtection from "./components/developer_components/AdminLoginProtection";
 import ValidateClient from "./components/client_components/ValidateClient";
+import AdminStorage_addItem from "./developer_pages/adminStorage_addItem/AdminStorage_addItem";
 
 function App() {
     const { state } = useAuthContext();
@@ -40,50 +41,57 @@ function App() {
     const router = createBrowserRouter(
         createRoutesFromElements(
             <>
-                    {/*TODO: create "admin only" protected wrapper component*/}
-                    <Route
-                        path="administratorLogin"
-                        element={
-                            <AdminLoginProtection>
-                                <AdministratorLogin />
-                            </AdminLoginProtection>
-                        }
-                    />
-                    <Route
-                        path="createAdmin"
-                        element={<CreateAdministrator/>}
-                    />
-                    <Route
-                        path="adminDashboard"
-                        element={
-                            <ProtectedRoute>
-                                <AdminDashboard/>
-                            </ProtectedRoute>
-                        }
-                    />
-                    <Route
-                        path="admin_storage"
-                        element={
+                <Route
+                    path="administratorLogin"
+                    element={
+                        <AdminLoginProtection>
+                            <AdministratorLogin />
+                        </AdminLoginProtection>
+                    }
+                />
+                <Route
+                    path="createAdmin"
+                    element={<CreateAdministrator/>}
+                />
+                <Route
+                    path="adminDashboard"
+                    element={
                         <ProtectedRoute>
-                            <AdminStorage/>
+                            <AdminDashboard/>
                         </ProtectedRoute>
+                    }
+                />
+                <Route
+                    path="admin_storage"
+                    element={
+                    <ProtectedRoute>
+                        <AdminStorage/>
+                    </ProtectedRoute>
+                    }
+                />
+
+                <Route
+                    path="admin_storage/addItem"
+                    element={
+                        <ProtectedRoute>
+                            <AdminStorage_addItem />
+                        </ProtectedRoute>
+                    }
+                />
+
+                <Route path="/" element={<Rootlayout/>}>
+                    <Route index element={<Home/>}/>
+                    <Route path="login" element={ state.user ? <Navigate to="/account_settings" replace /> : <Login/> }/>
+                    <Route path="signup" element={ state.user ? <Navigate to="/account_settings" replace /> : <Signup/> }/>
+                    <Route
+                        path="account_settings"
+                        element={
+                        <ValidateClient>
+                            <ClientDashboard />
+                        </ValidateClient>
                         }
                     />
-
-                    <Route path="/" element={<Rootlayout/>}>
-                        <Route index element={<Home/>}/>
-                        <Route path="login" element={ state.user ? <Navigate to="/account_settings" replace /> : <Login/> }/>
-                        <Route path="signup" element={ state.user ? <Navigate to="/account_settings" replace /> : <Signup/> }/>
-                        <Route
-                            path="account_settings"
-                            element={
-                            <ValidateClient>
-                                <ClientDashboard />
-                            </ValidateClient>
-                            }
-                        />
-                    </Route>
-
+                </Route>
             </>
         )
     )
