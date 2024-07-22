@@ -2,7 +2,11 @@ import './adminStorage_addItem.css'
 import AdminNavigation from "../../components/developer_components/AdminNavigation/AdminNavigation";
 import {Box, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent,} from '@mui/material';
 import {useState} from "react";
-import GpuForm from "../../components/developer_components/AdminStorage_addItem_GPUForm/GpuForm";
+import GpuForm from "../../components/developer_components/AdminStorage_addItem_Forms/AdminStorage_addItem_GPUForm/GpuForm";
+import CPUForm
+    from "../../components/developer_components/AdminStorage_addItem_Forms/AdminStorage_adItem_CPUForm/CPUForm";
+import MotherboardForm
+    from "../../components/developer_components/AdminStorage_addItem_Forms/AdminStorage_addItem_MotherboardForm/MotherboardForm";
 
 function AdminStorageAddItem() {
     const [selectedCollection, setSelectedCollection] = useState('');
@@ -62,7 +66,9 @@ function AdminStorageAddItem() {
                     </div>
 
                     <div className="as_addItem_inputFormContainer">
-                        <GpuForm />
+                        { selectedCollection === "gpu" && <GpuForm />}
+                        { selectedCollection === "cpu" && <CPUForm />}
+                        { selectedCollection === "motherboard" && <MotherboardForm />}
                     </div>
                 </div>
             </>

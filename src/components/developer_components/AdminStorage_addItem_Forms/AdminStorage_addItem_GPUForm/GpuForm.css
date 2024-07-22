@@ -26,7 +26,7 @@
 }
 
 .pwcSubClass {
-    font-weight: 600;
-    color: var(--hardGray-color);
+    font-weight: 500 !important;
+    color: var(--hardGray-color) !important;
     font-size: 12px;
 }

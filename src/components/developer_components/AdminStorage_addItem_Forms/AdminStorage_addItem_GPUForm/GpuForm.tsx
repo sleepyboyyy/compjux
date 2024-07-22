@@ -2,8 +2,56 @@ import React, {FormEvent, useState} from 'react';
 import {FormControl, TextField} from "@mui/material";
 import Button from "@mui/material/Button";
 import './GpuForm.css'
+import {useFirestore} from "../../../../hooks/useFirestore";
+
+export interface GpuData {
+    price: string,
+    quantity: string,
+    cudaCores: string,
+    apiSupport: string[] | string,
+    brand: string,
+    model: string,
+    display_outputs: string[] | string,
+    core_clock_speed: {
+        base: string,
+        boost: string
+    },
+    memory: {
+        type: string,
+        size: string,
+        interface: string,
+    },
+    cooling_solution: {
+        type: string,
+        additional_features: string[] | string,
+    },
+    power_connectors: {
+        native: {
+            pin_interface: string,
+            pin_number: string,
+            pin_type: string,
+        },
+        adapter: {
+            pin_interface: string,
+            pin_number: string,
+            pin_type: string
+        },
+    },
+    dimensions: {
+        length: string,
+        width: string,
+        height: string,
+        slot_requirement: string,
+    },
+    interface: {
+        type: string,
+        version: string,
+        configuration: string,
+    }
+}
 
 function GpuForm() {
+    const [model, setModel] = useState('');
     const [price, setPrice] = useState('');
     const [quantity, setQuantity] = useState('');
     const [cudaCores, setCudaCores] = useState('');
@@ -38,16 +86,27 @@ function GpuForm() {
     const [itfVersion, setITFVersion] = useState('');
     const [itfConfiguration, setITFConfiguration] = useState('');
 
+    // hooks
+    const { addDocument } = useFirestore('gpu');
+
     // handlers
     // submitHandler
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        const schema = {
+
+        const apiSupportArr = apiSupport.split(",").map(item => item.trim());
+        const displayOptionsArr = displayOptions.split(",").map(item => item.trim());
+        const csAdditionalFeaturesArr = csAdditionalFeatures.split(",").map(item => item.trim());
+
+
+        const schema: GpuData = {
             price,
             quantity,
             cudaCores,
-            apiSupport,
-            display_outputs: displayOptions,
+            apiSupport: apiSupportArr,
+            brand: "Nvidia",
+            model,
+            display_outputs: displayOptionsArr,
             core_clock_speed: {
                 base: ccsBase,
                 boost: ccsBoosted
@@ -59,7 +118,7 @@ function GpuForm() {
             },
             cooling_solution: {
                 type: csType,
-                additional_features: csAdditionalFeatures
+                additional_features: csAdditionalFeaturesArr,
             },
             power_connectors: {
                 native: {
@@ -86,11 +145,23 @@ function GpuForm() {
             }
         }
 
+        addDocument(schema);
         console.log(schema);
     }
 
     return (
         <form onSubmit={handleSubmit}>
+            <div className="as_addItem_textField_flexContainer">
+                <FormControl>
+                    <TextField
+                        required
+                        onChange={(e) => setModel(e.target.value)}
+                        id="outlined-required"
+                        label="Model"
+                        defaultValue=""
+                    />
+                </FormControl>
+            </div>
             <div className="as_addItem_textField_flexContainer">
                 <FormControl>
                     <TextField
@@ -228,7 +299,7 @@ function GpuForm() {
             </div>
 
             <p>Power connectors</p>
-            <span className="pwcSubClass">Native</span>
+            <p className="pwcSubClass">Native</p>
             <div className="as_addItem_textField_flexContainer">
                 <FormControl>
                     <TextField
@@ -258,7 +329,7 @@ function GpuForm() {
                     />
                 </FormControl>
             </div>
-            <span className="pwcSubClass">Adapter</span>
+            <p className="pwcSubClass">Adapter</p>
             <div className="as_addItem_textField_flexContainer">
                 <FormControl>
                     <TextField
