@@ -1,14 +1,14 @@
 import React, {FormEvent, useState} from 'react';
 import {FormControl, TextField} from "@mui/material";
 import Button from "@mui/material/Button";
-import './GpuForm.css'
+import '../AdminStorage_addItem_FormStyles/FormStyles.css'
 import {useFirestore} from "../../../../hooks/useFirestore";
 
 export interface GpuData {
     price: string,
     quantity: string,
     cudaCores: string,
-    apiSupport: string[] | string,
+    api_support: string[] | string,
     brand: string,
     model: string,
     display_outputs: string[] | string,
@@ -103,7 +103,7 @@ function GpuForm() {
             price,
             quantity,
             cudaCores,
-            apiSupport: apiSupportArr,
+            api_support: apiSupportArr,
             brand: "Nvidia",
             model,
             display_outputs: displayOptionsArr,

@@ -1,4 +1,4 @@
-import './MotherboardForm.css'
+import '../AdminStorage_addItem_FormStyles/FormStyles.css'
 
 function MotherboardForm() {
     return (
