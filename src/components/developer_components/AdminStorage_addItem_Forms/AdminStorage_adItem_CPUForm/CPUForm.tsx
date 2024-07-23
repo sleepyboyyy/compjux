@@ -92,7 +92,7 @@ function CpuForm() {
 
     // handlers
     // submitHandler
-    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         const compatibilityArr = compatibility.split(",").map(item => item.trim());
@@ -144,7 +144,7 @@ function CpuForm() {
             },
         }
 
-        addDocument(schema);
+        await addDocument(schema);
         console.log(schema);
     }
 

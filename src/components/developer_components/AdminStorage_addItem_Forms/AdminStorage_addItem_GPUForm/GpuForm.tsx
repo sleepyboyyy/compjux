@@ -91,13 +91,12 @@ function GpuForm() {
 
     // handlers
     // submitHandler
-    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         const apiSupportArr = apiSupport.split(",").map(item => item.trim());
         const displayOptionsArr = displayOptions.split(",").map(item => item.trim());
         const csAdditionalFeaturesArr = csAdditionalFeatures.split(",").map(item => item.trim());
-
 
         const schema: GpuData = {
             price,
@@ -145,7 +144,7 @@ function GpuForm() {
             }
         }
 
-        addDocument(schema);
+        await addDocument(schema);
         console.log(schema);
     }
 
