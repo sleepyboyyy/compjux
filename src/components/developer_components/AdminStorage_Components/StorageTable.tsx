@@ -2,16 +2,23 @@ import {Box, Checkbox, Paper, Table, TableBody, TableCell, TableContainer, Table
 import BorderColorIcon from '@mui/icons-material/BorderColor';
 import React from 'react';
 
-function StorageTable() {
+interface StorageTableProps {
+    data: any[];  // Adjust the type based on your actual data structure
+}
+
+function StorageTable({ data }: StorageTableProps) {
+
+    console.log(data);
+
     return (
-        <Box sx={{  }}>
+        <Box>
             <TableContainer
                 component={Paper}
                 sx={{
-                    borderBottomLeftRadius: '8px', borderBottomRightRadius: '8px',
                     boxShadow: 3,
                     width: '95%',
-                    margin: "0 auto"
+                    margin: "0 auto",
+                    borderRadius: '0px'
                 }}
             >
                 <Table sx={{ minWidth: 650 }} aria-label="customized table">
@@ -44,25 +51,26 @@ function StorageTable() {
                     {/* Table Body */}
                     <TableBody>
                         {/* Replace these rows with "example" text */}
-                        {Array.from({ length: 6 }).map((_, index) => (
-                            <TableRow key={index}>
+                        {data.length === 0 && <p>No data found for that collection</p>}
+                        {data.map((singleData) => (
+                            <TableRow key={singleData.id}>
                                 <TableCell align="center" sx={{ width: '50px', borderBottom: '1px solid #D2D2D2' }}>
                                     <Checkbox />
                                 </TableCell>
                                 <TableCell align="center" sx={{ borderBottom: '1px solid #D2D2D2', color: 'var(--secondary-color)' }}>
-                                    #Code
+                                    #{singleData.id.substring(0, 4).toUpperCase()}
                                 </TableCell>
                                 <TableCell align="center" sx={{ borderBottom: '1px solid #D2D2D2', color: 'var(--secondary-color)' }}>
-                                    Example Data 1
+                                    {singleData.brand}
                                 </TableCell>
                                 <TableCell align="center" sx={{ borderBottom: '1px solid #D2D2D2', color: 'var(--secondary-color)' }}>
-                                    Example Data 2
+                                    {singleData.model}
                                 </TableCell>
                                 <TableCell align="center" sx={{ borderBottom: '1px solid #D2D2D2', color: '#25A933' }}>
-                                    #DataCost
+                                    {singleData.price}$
                                 </TableCell>
                                 <TableCell align="center" sx={{ borderBottom: '1px solid #D2D2D2', color: 'var(--secondary-color)' }}>
-                                    0
+                                    {singleData.quantity}
                                 </TableCell>
                                 <TableCell align="center" sx={{ width: '120px', borderBottom: '1px solid #D2D2D2' }}>
                                     <BorderColorIcon sx={{ color: 'var(--secondary-color)' }} />

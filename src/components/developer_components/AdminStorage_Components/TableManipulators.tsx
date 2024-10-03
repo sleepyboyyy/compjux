@@ -1,13 +1,24 @@
-import React from 'react';
-import { Box, Button, TextField, MenuItem, Select, InputAdornment } from '@mui/material';
+import React, {useState} from 'react';
+import {Box, Button, TextField, MenuItem, Select, InputAdornment, SelectChangeEvent} from '@mui/material';
 import { Search, FilterList, Sort } from '@mui/icons-material';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 
 interface ChildProps {
     handleAddItem: () => void;
+    onCollectionChange: (collection: string) => void;
 }
 
-const TableManipulators: React.FC<ChildProps> = ({ handleAddItem }) => {
+const TableManipulators: React.FC<ChildProps> = ({ handleAddItem, onCollectionChange }) => {
+    const [selectedCollection, setSelectedCollection] = useState('gpu');
+
+    // handlers
+    // handle change
+    const handleChange = (event: SelectChangeEvent) => {
+        const newCollection = event.target.value as string;
+        setSelectedCollection(newCollection); // Update local state
+        onCollectionChange(newCollection);    // Notify parent component
+    };
+
     return (
         <Box
             display="flex"
@@ -25,8 +36,9 @@ const TableManipulators: React.FC<ChildProps> = ({ handleAddItem }) => {
         >
             {/* Dropdown for Item Type */}
             <Select
-                defaultValue=""
                 displayEmpty
+                value={selectedCollection}
+                onChange={handleChange}
                 sx={{ minWidth: 250 }}
                 size="small"
             >
