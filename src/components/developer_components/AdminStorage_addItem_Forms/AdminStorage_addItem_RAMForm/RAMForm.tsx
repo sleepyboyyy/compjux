@@ -6,8 +6,8 @@ import {useFirestore} from "../../../../hooks/useFirestore";
 interface RamData {
     brand: "Corsair",
     model: string,
-    price: string,
-    quantity: string,
+    price: number,
+    quantity: number,
     memory_type: string,
     voltage: string,
     form_factor: string,
@@ -38,8 +38,8 @@ interface RamData {
 
 function RamForm() {
     const [model, setModel] = useState('');
-    const [price, setPrice] = useState('');
-    const [quantity, setQuantity] = useState('');
+    const [price, setPrice] = useState(0);
+    const [quantity, setQuantity] = useState(0);
     const [memoryType, setMemoryType] = useState('');
     const [voltage, setVoltage] = useState('');
     const [formFactor, setFormFactor] = useState('');
@@ -125,7 +125,7 @@ function RamForm() {
                 <FormControl>
                     <TextField
                         required
-                        onChange={(e) => setPrice(e.target.value)}
+                        onChange={(e) => setPrice(parseInt(e.target.value))}
                         id="outlined-required"
                         label="Price"
                         defaultValue=""
@@ -135,7 +135,7 @@ function RamForm() {
                 <FormControl>
                     <TextField
                         required
-                        onChange={(e) => setQuantity(e.target.value)}
+                        onChange={(e) => setQuantity(parseInt(e.target.value))}
                         id="outlined-required"
                         label="Quantity"
                         defaultValue=""

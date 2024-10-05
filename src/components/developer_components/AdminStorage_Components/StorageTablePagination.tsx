@@ -1,12 +1,13 @@
 import React from 'react';
 import {Box, Pagination, Typography} from "@mui/material";
 
-function StorageTablePagination() {
-    const [page, setPage] = React.useState(1);
-    const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
-        setPage(value);
-    };
+interface StorageTablePaginationProps {
+    page: number;
+    totalPages: number;
+    onPageChange: (event: React.ChangeEvent<unknown>, value: number) => void;
+}
 
+function StorageTablePagination({ page, totalPages, onPageChange }: StorageTablePaginationProps) {
     return (
         <Box
             display="flex"
@@ -23,14 +24,14 @@ function StorageTablePagination() {
             }}
         >
             <Typography sx={{color: 'var(--secondary-color)', opacity: 0.5}}>
-                Showing <span style={{fontWeight: '700'}}>{page}</span> of 10 pages
+                Showing <span style={{fontWeight: '700'}}>{page}</span> of {totalPages} pages
             </Typography>
 
             <Pagination
-                count={10}
+                count={totalPages}
                 variant="outlined"
                 page={page}
-                onChange={handleChange}
+                onChange={onPageChange}
                 shape="rounded"
             />
         </Box>

@@ -8,8 +8,8 @@ import {AddCard} from "@mui/icons-material";
 interface MotherboardData {
     brand: "ASUS",
     model: string,
-    price: string,
-    quantity: string,
+    price: number,
+    quantity: number,
     chipset: string,
     socket: string,
     form_factor: string,
@@ -66,8 +66,8 @@ interface MotherboardData {
 
 function MotherboardForm() {
     const [model, setModel] = useState('');
-    const [price, setPrice] = useState('');
-    const [quantity, setQuantity] = useState('');
+    const [price, setPrice] = useState(0);
+    const [quantity, setQuantity] = useState(0);
     const [chipset, setChipset] = useState("");
     const [socket, setSocket] = useState("");
     const [formFactor , setFormFactor] = useState("");
@@ -203,7 +203,7 @@ function MotherboardForm() {
                 <FormControl>
                     <TextField
                         required
-                        onChange={(e) => setPrice(e.target.value)}
+                        onChange={(e) => setPrice(parseInt(e.target.value))}
                         id="outlined-required"
                         label="Price"
                         defaultValue=""
@@ -213,7 +213,7 @@ function MotherboardForm() {
                 <FormControl>
                     <TextField
                         required
-                        onChange={(e) => setQuantity(e.target.value)}
+                        onChange={(e) => setQuantity(parseInt(e.target.value))}
                         id="outlined-required"
                         label="Quantity"
                         defaultValue=""

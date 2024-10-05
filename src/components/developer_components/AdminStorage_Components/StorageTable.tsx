@@ -1,4 +1,15 @@
-import {Box, Checkbox, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from '@mui/material';
+import {
+    Box,
+    Checkbox,
+    IconButton,
+    Paper,
+    Table,
+    TableBody,
+    TableCell,
+    TableContainer,
+    TableHead,
+    TableRow
+} from '@mui/material';
 import BorderColorIcon from '@mui/icons-material/BorderColor';
 import React from 'react';
 
@@ -73,7 +84,9 @@ function StorageTable({ data }: StorageTableProps) {
                                     {singleData.quantity}
                                 </TableCell>
                                 <TableCell align="center" sx={{ width: '120px', borderBottom: '1px solid #D2D2D2' }}>
-                                    <BorderColorIcon sx={{ color: 'var(--secondary-color)' }} />
+                                    <IconButton aria-label="delete" size="small">
+                                        <BorderColorIcon sx={{ color: 'var(--secondary-color)' }} />
+                                    </IconButton>
                                 </TableCell>
                             </TableRow>
                         ))}

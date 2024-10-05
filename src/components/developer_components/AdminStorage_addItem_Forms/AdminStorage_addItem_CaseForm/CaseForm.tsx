@@ -6,8 +6,8 @@ import {useFirestore} from "../../../../hooks/useFirestore";
 interface CaseData {
     brand: "NZXT";
     model: string;
-    price: string,
-    quantity: string,
+    price: number,
+    quantity: number,
     form_factor: string;
     motherboard_support: string[];
     dimensions: {
@@ -62,8 +62,8 @@ interface CaseData {
 
 function CaseForm() {
     const [model, setModel] = useState('');
-    const [price, setPrice] = useState('');
-    const [quantity, setQuantity] = useState('');
+    const [price, setPrice] = useState(0);
+    const [quantity, setQuantity] = useState(0);
     const [formFactor, setFormFactor] = useState('');
     const [motherboardSupport, setMotherboardSupport] = useState('');
     const [weight, setWeight] = useState('');
@@ -198,7 +198,7 @@ function CaseForm() {
                 <FormControl>
                     <TextField
                         required
-                        onChange={(e) => setPrice(e.target.value)}
+                        onChange={(e) => setPrice(parseInt(e.target.value))}
                         id="outlined-required"
                         label="Price"
                         defaultValue=""
@@ -208,7 +208,7 @@ function CaseForm() {
                 <FormControl>
                     <TextField
                         required
-                        onChange={(e) => setQuantity(e.target.value)}
+                        onChange={(e) => setQuantity(parseInt(e.target.value))}
                         id="outlined-required"
                         label="Quantity"
                         defaultValue=""

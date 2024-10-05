@@ -6,8 +6,8 @@ import {useFirestore} from "../../../../hooks/useFirestore";
 interface PsuData {
     brand: "Corsair",
     model: string,
-    price: string,
-    quantity: string,
+    price: number,
+    quantity: number,
     form_factor: string,
     power_output: string,
     efficiency_rating: string,
@@ -51,8 +51,8 @@ interface PsuData {
 
 function PsuForm() {
     const [model, setModel] = useState('');
-    const [price, setPrice] = useState('');
-    const [quantity, setQuantity] = useState('');
+    const [price, setPrice] = useState(0);
+    const [quantity, setQuantity] = useState(0);
     const [formFactor, setFormFactor] = useState('');
     const [powerOutput, setPowerOutput] = useState('');
     const [efficiencyRating, setEfficiencyRating] = useState('');
@@ -164,7 +164,7 @@ function PsuForm() {
                 <FormControl>
                     <TextField
                         required
-                        onChange={(e) => setPrice(e.target.value)}
+                        onChange={(e) => setPrice(parseInt(e.target.value))}
                         id="outlined-required"
                         label="Price"
                         defaultValue=""
@@ -174,7 +174,7 @@ function PsuForm() {
                 <FormControl>
                     <TextField
                         required
-                        onChange={(e) => setQuantity(e.target.value)}
+                        onChange={(e) => setQuantity(parseInt(e.target.value))}
                         id="outlined-required"
                         label="Quantity"
                         defaultValue=""

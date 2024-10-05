@@ -8,8 +8,8 @@ import * as string_decoder from "node:string_decoder";
 interface CpuData {
     brand: "Intel"
     model: string,
-    price: string,
-    quantity: string,
+    price: number,
+    quantity: number,
     socket: string,
     compatibility: string[] | string,
     technologies: string[] | string,
@@ -53,8 +53,8 @@ interface CpuData {
 
 function CpuForm() {
     const [model, setModel] = useState('');
-    const [price, setPrice] = useState('');
-    const [quantity, setQuantity] = useState('');
+    const [price, setPrice] = useState(0);
+    const [quantity, setQuantity] = useState(0);
     const [socket, setSocket] = useState("");
     const [compatibility, setCompatibility] = useState("");
     const [technologies, setTechnologies] = useState("");
@@ -165,7 +165,7 @@ function CpuForm() {
                 <FormControl>
                     <TextField
                         required
-                        onChange={(e) => setPrice(e.target.value)}
+                        onChange={(e) => setPrice(parseInt(e.target.value))}
                         id="outlined-required"
                         label="Price"
                         defaultValue=""
@@ -175,7 +175,7 @@ function CpuForm() {
                 <FormControl>
                     <TextField
                         required
-                        onChange={(e) => setQuantity(e.target.value)}
+                        onChange={(e) => setQuantity(parseInt(e.target.value))}
                         id="outlined-required"
                         label="Quantity"
                         defaultValue=""

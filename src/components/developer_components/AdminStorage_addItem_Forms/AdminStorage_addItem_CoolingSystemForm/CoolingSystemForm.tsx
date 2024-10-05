@@ -24,14 +24,14 @@ interface CoolingSystemData {
     weight: string,
     rgb_lighting: boolean,
     warranty: string,
-    price: string,
-    quantity: string
+    price: number,
+    quantity: number
 }
 
 function CoolingSystemForm() {
     const [model, setModel] = useState('');
-    const [price, setPrice] = useState('');
-    const [quantity, setQuantity] = useState('');
+    const [price, setPrice] = useState(0);
+    const [quantity, setQuantity] = useState(0);
     const [type, setType] = useState('');
     const [fanSize, setFanSize] = useState('');
     const [rpmRange, setRpmRange] = useState('');
@@ -106,7 +106,7 @@ function CoolingSystemForm() {
                 <FormControl>
                     <TextField
                         required
-                        onChange={(e) => setPrice(e.target.value)}
+                        onChange={(e) => setPrice(parseInt(e.target.value))}
                         id="outlined-required"
                         label="Price"
                         defaultValue=""
@@ -116,7 +116,7 @@ function CoolingSystemForm() {
                 <FormControl>
                     <TextField
                         required
-                        onChange={(e) => setQuantity(e.target.value)}
+                        onChange={(e) => setQuantity(parseInt(e.target.value))}
                         id="outlined-required"
                         label="Quantity"
                         defaultValue=""

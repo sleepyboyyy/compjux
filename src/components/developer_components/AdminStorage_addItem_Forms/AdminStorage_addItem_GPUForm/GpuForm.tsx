@@ -5,8 +5,8 @@ import '../AdminStorage_addItem_FormStyles/FormStyles.css'
 import {useFirestore} from "../../../../hooks/useFirestore";
 
 export interface GpuData {
-    price: string,
-    quantity: string,
+    price: number,
+    quantity: number,
     cudaCores: string,
     api_support: string[] | string,
     brand: string,
@@ -52,8 +52,8 @@ export interface GpuData {
 
 function GpuForm() {
     const [model, setModel] = useState('');
-    const [price, setPrice] = useState('');
-    const [quantity, setQuantity] = useState('');
+    const [price, setPrice] = useState(0);
+    const [quantity, setQuantity] = useState(0);
     const [cudaCores, setCudaCores] = useState('');
     const [apiSupport, setApiSupport] = useState('');
     const [displayOptions, setDisplayOptions] = useState('');
@@ -165,7 +165,7 @@ function GpuForm() {
                 <FormControl>
                     <TextField
                         required
-                        onChange={(e) => setPrice(e.target.value)}
+                        onChange={(e) => setPrice(parseInt(e.target.value))}
                         id="outlined-required"
                         label="Price"
                         defaultValue=""
@@ -175,7 +175,7 @@ function GpuForm() {
                 <FormControl>
                     <TextField
                         required
-                        onChange={(e) => setQuantity(e.target.value)}
+                        onChange={(e) => setQuantity(parseInt(e.target.value))}
                         id="outlined-required"
                         label="Quantity"
                         defaultValue=""
