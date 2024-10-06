@@ -12,14 +12,15 @@ import {
 } from '@mui/material';
 import BorderColorIcon from '@mui/icons-material/BorderColor';
 import React from 'react';
+import {useNavigate} from "react-router-dom";
 
 interface StorageTableProps {
     data: any[];  // Adjust the type based on your actual data structure
+    currentCollection: string;
 }
 
-function StorageTable({ data }: StorageTableProps) {
-
-    console.log(data);
+function StorageTable({ data, currentCollection }: StorageTableProps) {
+    const navigate = useNavigate();
 
     return (
         <Box>
@@ -57,6 +58,9 @@ function StorageTable({ data }: StorageTableProps) {
                             <TableCell align="center" sx={{ fontWeight: 'bold', borderBottom: '2px solid #D2D2D2' }}>
                                 Item Details
                             </TableCell>
+                            <TableCell align="center" sx={{ fontWeight: 'bold', borderBottom: '2px solid #D2D2D2' }}>
+
+                            </TableCell>
                         </TableRow>
                     </TableHead>
                     {/* Table Body */}
@@ -65,10 +69,10 @@ function StorageTable({ data }: StorageTableProps) {
                         {data.length === 0 && <p>No data found for that collection</p>}
                         {data.map((singleData) => (
                             <TableRow key={singleData.id}>
-                                <TableCell align="center" sx={{ width: '50px', borderBottom: '1px solid #D2D2D2' }}>
-                                    <Checkbox />
-                                </TableCell>
                                 <TableCell align="center" sx={{ borderBottom: '1px solid #D2D2D2', color: 'var(--secondary-color)' }}>
+
+                                </TableCell>
+                                <TableCell align="center" sx={{ width: '120px', borderBottom: '1px solid #D2D2D2', color: 'var(--secondary-color)' }}>
                                     #{singleData.id.substring(0, 4).toUpperCase()}
                                 </TableCell>
                                 <TableCell align="center" sx={{ borderBottom: '1px solid #D2D2D2', color: 'var(--secondary-color)' }}>
@@ -84,9 +88,12 @@ function StorageTable({ data }: StorageTableProps) {
                                     {singleData.quantity}
                                 </TableCell>
                                 <TableCell align="center" sx={{ width: '120px', borderBottom: '1px solid #D2D2D2' }}>
-                                    <IconButton aria-label="delete" size="small">
+                                    <IconButton aria-label="edit" size="small" onClick={() => navigate(`item/${currentCollection}/${singleData.id}`)}>
                                         <BorderColorIcon sx={{ color: 'var(--secondary-color)' }} />
                                     </IconButton>
+                                </TableCell>
+                                <TableCell align="center" sx={{ borderBottom: '1px solid #D2D2D2', color: 'var(--secondary-color)' }}>
+
                                 </TableCell>
                             </TableRow>
                         ))}

@@ -33,6 +33,7 @@ import ProtectedRoute from "./components/developer_components/ProtectedRoute";
 import AdminLoginProtection from "./components/developer_components/AdminLoginProtection";
 import ValidateClient from "./components/client_components/ValidateClient";
 import AdminStorage_addItem from "./developer_pages/adminStorage_addItem/AdminStorage_addItem";
+import AdminStorageItemDetails from "./developer_pages/adminStorageItemDetails/AdminStorageItemDetails";
 
 function App() {
     const { state } = useAuthContext();
@@ -67,6 +68,15 @@ function App() {
                     <ProtectedRoute>
                         <AdminStorage/>
                     </ProtectedRoute>
+                    }
+                />
+
+                <Route
+                    path="admin_storage/item/:collection/:id"
+                    element={
+                        <ProtectedRoute>
+                            <AdminStorageItemDetails />
+                        </ProtectedRoute>
                     }
                 />
 

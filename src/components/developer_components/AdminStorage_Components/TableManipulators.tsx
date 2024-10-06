@@ -17,13 +17,15 @@ interface ChildProps {
     handleAddItem: () => void;
     onCollectionChange: (collection: string) => void;
     onSortChange: (sortOption: string | null, direction: "asc" | "desc") => void;
+    onSearchChange: (query: string) => void;
 }
 
-const TableManipulators: React.FC<ChildProps> = ({ handleAddItem, onCollectionChange, onSortChange }) => {
+const TableManipulators: React.FC<ChildProps> = ({ handleAddItem, onCollectionChange, onSortChange, onSearchChange }) => {
     const [selectedCollection, setSelectedCollection] = useState('gpu');
     const [openDialog, setOpenDialog] = useState(false);
     const [sortOption, setSortOption] = useState<string | null>('none');
     const [sortDirection, setSortDirection] = useState<"asc" | "desc">('asc');
+    const [searchQuery, setSearchQuery] = useState("");
 
     // handlers
     // handle change
@@ -52,6 +54,11 @@ const TableManipulators: React.FC<ChildProps> = ({ handleAddItem, onCollectionCh
 
     const handleSortButtonClick = () => {
         setOpenDialog(true); // Open sort dialog
+    };
+
+    const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setSearchQuery(event.target.value); // Update local search state
+        onSearchChange(event.target.value); // Notify parent of the search query
     };
 
     return (
@@ -95,6 +102,8 @@ const TableManipulators: React.FC<ChildProps> = ({ handleAddItem, onCollectionCh
                 size="small"
                 variant="outlined"
                 placeholder="Search anything..."
+                value={searchQuery}
+                onChange={handleSearchChange}
                 sx={{ minWidth: 300 }}
                 InputProps={{
                     startAdornment: (

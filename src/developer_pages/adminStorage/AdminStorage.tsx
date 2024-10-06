@@ -13,6 +13,7 @@ function AdminStorage() {
     const [sortType, setSortType] = useState<string | null>(null);
     const [sortDirection, setSortDirection] = useState<"asc" | "desc">('asc');
     const [page, setPage] = useState(1);
+    const [searchQuery, setSearchQuery] = useState("");
     const rowsPerPage = 6;
 
     // hooks
@@ -23,11 +24,14 @@ function AdminStorage() {
         return <div>Loading...</div>;
     }
 
+    // Filter documents based on search query
+    const filteredData = documents.filter((doc: any) => checkNestedProperties(doc, searchQuery));
+
     // calculate current data
-    const paginatedData = documents.slice((page-1) * rowsPerPage, page * rowsPerPage);
+    const paginatedData = filteredData.slice((page-1) * rowsPerPage, page * rowsPerPage);
 
     // calculate total pages
-    const totalPages = Math.ceil(documents.length / rowsPerPage);
+    const totalPages = Math.ceil(filteredData.length / rowsPerPage);
 
     // handlers
     // add item handler
@@ -51,6 +55,11 @@ function AdminStorage() {
         setPage(value);
     }
 
+    // handle search change
+    const handleSearchChange = (query: string) => {
+        setSearchQuery(query);
+    }
+
     return (
         <div>
             <AdminNavigation page="STORAGE">
@@ -60,8 +69,9 @@ function AdminStorage() {
                             onCollectionChange={handleSelectedCollectionChange}
                             handleAddItem={handleAddItem}
                             onSortChange={handleSortChange}
+                            onSearchChange={handleSearchChange}
                         />
-                        <StorageTable  data={paginatedData}/>
+                        <StorageTable data={paginatedData} currentCollection={selectedCollection}/>
                         <StorageTablePagination
                             page={page}
                             totalPages={totalPages}
@@ -73,5 +83,23 @@ function AdminStorage() {
         </div>
     );
 }
+
+// TODO: Learn how logic works
+const checkNestedProperties = (obj: any, searchTerm: string): boolean => {
+    // Loop through all properties in the object
+    for (let key in obj) {
+        // If the current property is an object itself, recursively check its properties
+        if (typeof obj[key] === 'object' && obj[key] !== null) {
+            if (checkNestedProperties(obj[key], searchTerm)) {
+                return true;
+            }
+        }
+        // If the property is a string, check if it contains the search term
+        else if (typeof obj[key] === 'string' && obj[key].toLowerCase().includes(searchTerm.toLowerCase())) {
+            return true;
+        }
+    }
+    return false;
+};
 
 export default AdminStorage;

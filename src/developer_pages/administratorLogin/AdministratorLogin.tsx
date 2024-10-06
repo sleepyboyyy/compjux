@@ -2,7 +2,7 @@ import {FormEvent, useContext, useEffect, useRef, useState} from "react";
 import {useSignIn} from "../../hooks/useSignIn";
 import {AuthContext} from "../../context/AuthContext";
 import {useNavigate} from "react-router-dom";
-import {useDocument} from "../../hooks/useDocument";
+import {useValidate} from "../../hooks/useValidate";
 
 
 function AdministratorLogin() {
