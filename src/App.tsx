@@ -20,20 +20,20 @@ import Signup from "./pages/Signup/Signup";
 import ClientDashboard from "./pages/Client Dashboard/ClientDashboard";
 
 // admin pages
-import AdministratorLogin from "./developer_pages/administratorLogin/AdministratorLogin";
-import CreateAdministrator from "./developer_pages/createAdministrator/CreateAdministrator";
-import AdminDashboard from "./developer_pages/adminDashboard/AdminDashboard";
+import AdministratorLogin from "./pages/administratorLogin/AdministratorLogin";
+import CreateAdministrator from "./pages/createAdministrator/CreateAdministrator";
+import AdminDashboard from "./pages/adminDashboard/AdminDashboard";
 
 // components
-import AdminStorage from "./developer_pages/adminStorage/AdminStorage";
+import AdminStorage from "./pages/adminStorage/AdminStorage";
 
 
 import {useAuthContext} from "./hooks/useAuthContext";
-import ProtectedRoute from "./components/developer_components/ProtectedRoute";
-import AdminLoginProtection from "./components/developer_components/AdminLoginProtection";
-import ValidateClient from "./components/client_components/ValidateClient";
-import AdminStorage_addItem from "./developer_pages/adminStorage_addItem/AdminStorage_addItem";
-import AdminStorageItemDetails from "./developer_pages/adminStorageItemDetails/AdminStorageItemDetails";
+import ProtectedRoute from "./components/ProtectedRoute";
+import AdminLoginProtection from "./components/AdminLoginProtection";
+import ValidateClient from "./components/ValidateClient";
+import AdminStorageItemDetails from "./pages/adminStorageItemDetails/AdminStorageItemDetails";
+import AdminStorageAddItem from "./pages/adminStorageAddItem/AdminStorageAddItem";
 
 function App() {
     const { state } = useAuthContext();
@@ -43,7 +43,7 @@ function App() {
         createRoutesFromElements(
             <>
                 <Route
-                    path="administratorLogin"
+                    path="administrator-login"
                     element={
                         <AdminLoginProtection>
                             <AdministratorLogin />
@@ -51,11 +51,11 @@ function App() {
                     }
                 />
                 <Route
-                    path="createAdmin"
+                    path="create-admin"
                     element={<CreateAdministrator/>}
                 />
                 <Route
-                    path="adminDashboard"
+                    path="admin-dashboard"
                     element={
                         <ProtectedRoute>
                             <AdminDashboard/>
@@ -63,7 +63,7 @@ function App() {
                     }
                 />
                 <Route
-                    path="admin_storage"
+                    path="admin-storage"
                     element={
                     <ProtectedRoute>
                         <AdminStorage/>
@@ -72,7 +72,7 @@ function App() {
                 />
 
                 <Route
-                    path="admin_storage/item/:collection/:id"
+                    path="admin-storage/item/:collection/:id"
                     element={
                         <ProtectedRoute>
                             <AdminStorageItemDetails />
@@ -81,20 +81,20 @@ function App() {
                 />
 
                 <Route
-                    path="admin_storage/addItem"
+                    path="admin-storage/addItem"
                     element={
                         <ProtectedRoute>
-                            <AdminStorage_addItem />
+                            <AdminStorageAddItem />
                         </ProtectedRoute>
                     }
                 />
 
                 <Route path="/" element={<Rootlayout/>}>
                     <Route index element={<Home/>}/>
-                    <Route path="login" element={ state.user ? <Navigate to="/account_settings" replace /> : <Login/> }/>
-                    <Route path="signup" element={ state.user ? <Navigate to="/account_settings" replace /> : <Signup/> }/>
+                    <Route path="login" element={ state.user ? <Navigate to="/account-settings" replace /> : <Login/> }/>
+                    <Route path="signup" element={ state.user ? <Navigate to="/account-settings" replace /> : <Signup/> }/>
                     <Route
-                        path="account_settings"
+                        path="account-settings"
                         element={
                         <ValidateClient>
                             <ClientDashboard />

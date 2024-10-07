@@ -2,7 +2,7 @@ import {useEffect, useState} from "react";
 import { doc, setDoc, updateDoc } from 'firebase/firestore'
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
 import {projectAuth, projectFirestore} from "../firebase/firebase";
-import {AdminData} from "../developer_pages/createAdministrator/CreateAdministrator";
+import {AdminData} from "../pages/createAdministrator/CreateAdministrator";
 import {ClientData} from "../pages/Signup/Signup";
 
 export interface registerData {
