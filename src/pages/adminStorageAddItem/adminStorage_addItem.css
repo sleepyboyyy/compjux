@@ -1,0 +1,18 @@
+.as_addItem_container {
+    position: relative;
+    width: 1148px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--softWhite-color);
+    margin: 32px auto 32px auto;
+    border-radius: 8px;
+}
+
+.as_addItem_collectionSelector {
+    width: 315px;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
