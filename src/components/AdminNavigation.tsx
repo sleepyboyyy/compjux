@@ -24,7 +24,7 @@ import { NavLink } from "react-router-dom";
 //TODO: finish vertical navigation and add Outlet logic
 interface AdminNavigationProps {
     children: JSX.Element;
-    page: "DASHBOARD" | "STORAGE";
+    page: "DASHBOARD" | "STORAGE" | "PRODUCTS";
 }
 
 interface headerState {
@@ -41,7 +41,11 @@ interface storageAction {
     type: 'STORAGE';
 }
 
-type headerAction = dashboardAction | storageAction;
+interface ProductsAction {
+    type: 'PRODUCTS';
+}
+
+type headerAction = dashboardAction | storageAction | ProductsAction;
 
 const headerReducer = (textHeader: headerState, action: headerAction) => {
     switch(action.type) {
@@ -49,6 +53,8 @@ const headerReducer = (textHeader: headerState, action: headerAction) => {
             return { currentPage: "dashboard", headerContent: "Good Morning", subContent: "Welcome to your Dashboard" }
         case "STORAGE":
             return { currentPage: "storage", headerContent: "Storage", subContent: "" }
+        case "PRODUCTS":
+            return { currentPage: "products", headerContent: "Products", subContent: "" }
         default:
             return textHeader;
     }

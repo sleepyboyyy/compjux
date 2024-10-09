@@ -34,6 +34,8 @@ import AdminLoginProtection from "./components/AdminLoginProtection";
 import ValidateClient from "./components/ValidateClient";
 import AdminStorageItemDetails from "./pages/adminStorageItemDetails/AdminStorageItemDetails";
 import AdminStorageAddItem from "./pages/adminStorageAddItem/AdminStorageAddItem";
+import AdminProducts from "./pages/adminProducts/AdminProducts";
+import AdminProductBuilder from "./pages/adminProductBuilder/AdminProductBuilder";
 
 function App() {
     const { state } = useAuthContext();
@@ -85,6 +87,24 @@ function App() {
                     element={
                         <ProtectedRoute>
                             <AdminStorageAddItem />
+                        </ProtectedRoute>
+                    }
+                />
+
+                <Route
+                    path="admin-products"
+                    element={
+                        <ProtectedRoute>
+                            <AdminProducts />
+                        </ProtectedRoute>
+                    }
+                />
+
+                <Route
+                    path="admin-products/product-builder"
+                    element={
+                        <ProtectedRoute>
+                            <AdminProductBuilder />
                         </ProtectedRoute>
                     }
                 />

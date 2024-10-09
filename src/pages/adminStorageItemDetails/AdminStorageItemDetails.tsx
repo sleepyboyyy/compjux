@@ -83,7 +83,8 @@ function AdminStorageItemDetails() {
             <Typography variant="h4" sx={{marginBottom: '16px', color: 'var(--secondary-color)'}}>
                 {document.brand} - {document.model}
             </Typography>
-            <Typography variant="h6" sx={{marginBottom: '16px', color: 'var(--secondary-color)'}}>
+            <Typography variant="h6" sx={{marginBottom: '16px', color: 'var(--secondary-color)', textAlign: 'center'}}>
+                <strong>{document.price}$</strong><br/>
                 Created at: {new Date(document.createdAt.seconds * 1000).toLocaleDateString('en-US', {
                 year: 'numeric',
                 month: 'long',
@@ -120,7 +121,7 @@ function AdminStorageItemDetails() {
 // Helper function to recursively render nested properties
 const renderProperties = (obj: any, level: number = 0) => {
     return Object.entries(obj)
-        .filter(([key]) => key !== 'id' && key !== 'createdAt' && key !== 'brand' && key !== 'model')
+        .filter(([key]) => key !== 'id' && key !== 'createdAt' && key !== 'brand' && key !== 'model' && key !== 'price')
         .map(([key, value]) => {
         if (typeof value === 'object' && value !== null) {
             // Recursively render child properties
