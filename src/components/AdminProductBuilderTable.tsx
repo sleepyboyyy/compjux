@@ -1,8 +1,19 @@
 import React from 'react';
 import {IconButton, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from "@mui/material";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
+import Button from "@mui/material/Button";
+import AddRoundedIcon from '@mui/icons-material/AddRounded';
+import {useNavigate} from "react-router-dom";
 
 function AdminProductBuilderTable() {
+    const navigate = useNavigate();
+
+    // handlers
+    // handle add click
+    const handleAddClick = (componentType:string) => {
+        navigate(`select/${componentType}`);
+    };
+
     return (
         <TableContainer
             component={Paper}
@@ -29,142 +40,36 @@ function AdminProductBuilderTable() {
                         </TableCell>
                     </TableRow>
                 </TableHead>
+
                 <TableBody>
-                    <TableRow sx={{ backgroundColor: 'var(--softWhite-color)' }}>
-                        <TableCell align='center' sx={{ borderBottom: '2px solid var(--secondary-color)', width: '140px' }}>
-                            GPU
-                        </TableCell>
-                        <TableCell align='center' sx={{ borderBottom: '2px solid var(--secondary-color)', width: '250px' }}>
-                            + Choose a GPU
-                        </TableCell>
-                        <TableCell align='left' sx={{ borderBottom: '2px solid var(--secondary-color)' }}>
-                            NVidia GeForce RTX 4090 32GB 2520GHz
-                        </TableCell>
-                        <TableCell align='center' sx={{ borderBottom: '2px solid var(--secondary-color)' }}>
-                            <IconButton aria-label="edit" size="small">
-                                <CloseRoundedIcon sx={{ color: 'var(--secondary-color)' }} />
-                            </IconButton>
-                        </TableCell>
-                    </TableRow>
-
-                    <TableRow sx={{ backgroundColor: 'var(--softWhite-color)' }}>
-                        <TableCell align='center' sx={{ borderBottom: '2px solid var(--secondary-color)', width: '140px' }}>
-                            GPU
-                        </TableCell>
-                        <TableCell align='center' sx={{ borderBottom: '2px solid var(--secondary-color)', width: '250px' }}>
-                            + Choose a GPU
-                        </TableCell>
-                        <TableCell align='left' sx={{ borderBottom: '2px solid var(--secondary-color)' }}>
-                            NVidia GeForce RTX 4090 32GB 2520GHz
-                        </TableCell>
-                        <TableCell align='center' sx={{ borderBottom: '2px solid var(--secondary-color)' }}>
-                            <IconButton aria-label="edit" size="small">
-                                <CloseRoundedIcon sx={{ color: 'var(--secondary-color)' }} />
-                            </IconButton>
-                        </TableCell>
-                    </TableRow>
-
-                    <TableRow sx={{ backgroundColor: 'var(--softWhite-color)' }}>
-                        <TableCell align='center' sx={{ borderBottom: '2px solid var(--secondary-color)', width: '140px' }}>
-                            GPU
-                        </TableCell>
-                        <TableCell align='center' sx={{ borderBottom: '2px solid var(--secondary-color)', width: '250px' }}>
-                            + Choose a GPU
-                        </TableCell>
-                        <TableCell align='left' sx={{ borderBottom: '2px solid var(--secondary-color)' }}>
-                            NVidia GeForce RTX 4090 32GB 2520GHz
-                        </TableCell>
-                        <TableCell align='center' sx={{ borderBottom: '2px solid var(--secondary-color)' }}>
-                            <IconButton aria-label="edit" size="small">
-                                <CloseRoundedIcon sx={{ color: 'var(--secondary-color)' }} />
-                            </IconButton>
-                        </TableCell>
-                    </TableRow>
-
-                    <TableRow sx={{ backgroundColor: 'var(--softWhite-color)' }}>
-                        <TableCell align='center' sx={{ borderBottom: '2px solid var(--secondary-color)', width: '140px' }}>
-                            GPU
-                        </TableCell>
-                        <TableCell align='center' sx={{ borderBottom: '2px solid var(--secondary-color)', width: '250px' }}>
-                            + Choose a GPU
-                        </TableCell>
-                        <TableCell align='left' sx={{ borderBottom: '2px solid var(--secondary-color)' }}>
-                            NVidia GeForce RTX 4090 32GB 2520GHz
-                        </TableCell>
-                        <TableCell align='center' sx={{ borderBottom: '2px solid var(--secondary-color)' }}>
-                            <IconButton aria-label="edit" size="small">
-                                <CloseRoundedIcon sx={{ color: 'var(--secondary-color)' }} />
-                            </IconButton>
-                        </TableCell>
-                    </TableRow>
-
-                    <TableRow sx={{ backgroundColor: 'var(--softWhite-color)' }}>
-                        <TableCell align='center' sx={{ borderBottom: '2px solid var(--secondary-color)', width: '140px' }}>
-                            GPU
-                        </TableCell>
-                        <TableCell align='center' sx={{ borderBottom: '2px solid var(--secondary-color)', width: '250px' }}>
-                            + Choose a GPU
-                        </TableCell>
-                        <TableCell align='left' sx={{ borderBottom: '2px solid var(--secondary-color)' }}>
-                            NVidia GeForce RTX 4090 32GB 2520GHz
-                        </TableCell>
-                        <TableCell align='center' sx={{ borderBottom: '2px solid var(--secondary-color)' }}>
-                            <IconButton aria-label="edit" size="small">
-                                <CloseRoundedIcon sx={{ color: 'var(--secondary-color)' }} />
-                            </IconButton>
-                        </TableCell>
-                    </TableRow>
-
-                    <TableRow sx={{ backgroundColor: 'var(--softWhite-color)' }}>
-                        <TableCell align='center' sx={{ borderBottom: '2px solid var(--secondary-color)', width: '140px' }}>
-                            GPU
-                        </TableCell>
-                        <TableCell align='center' sx={{ borderBottom: '2px solid var(--secondary-color)', width: '250px' }}>
-                            + Choose a GPU
-                        </TableCell>
-                        <TableCell align='left' sx={{ borderBottom: '2px solid var(--secondary-color)' }}>
-                            NVidia GeForce RTX 4090 32GB 2520GHz
-                        </TableCell>
-                        <TableCell align='center' sx={{ borderBottom: '2px solid var(--secondary-color)' }}>
-                            <IconButton aria-label="edit" size="small">
-                                <CloseRoundedIcon sx={{ color: 'var(--secondary-color)' }} />
-                            </IconButton>
-                        </TableCell>
-                    </TableRow>
-
-                    <TableRow sx={{ backgroundColor: 'var(--softWhite-color)' }}>
-                        <TableCell align='center' sx={{ borderBottom: '2px solid var(--secondary-color)', width: '140px' }}>
-                            GPU
-                        </TableCell>
-                        <TableCell align='center' sx={{ borderBottom: '2px solid var(--secondary-color)', width: '250px' }}>
-                            + Choose a GPU
-                        </TableCell>
-                        <TableCell align='left' sx={{ borderBottom: '2px solid var(--secondary-color)' }}>
-                            NVidia GeForce RTX 4090 32GB 2520GHz
-                        </TableCell>
-                        <TableCell align='center' sx={{ borderBottom: '2px solid var(--secondary-color)' }}>
-                            <IconButton aria-label="edit" size="small">
-                                <CloseRoundedIcon sx={{ color: 'var(--secondary-color)' }} />
-                            </IconButton>
-                        </TableCell>
-                    </TableRow>
-
-                    <TableRow sx={{ backgroundColor: 'var(--softWhite-color)' }}>
-                        <TableCell align='center' sx={{ borderBottom: '2px solid var(--secondary-color)', width: '140px' }}>
-                            GPU
-                        </TableCell>
-                        <TableCell align='center' sx={{ borderBottom: '2px solid var(--secondary-color)', width: '250px' }}>
-                            + Choose a GPU
-                        </TableCell>
-                        <TableCell align='left' sx={{ borderBottom: '2px solid var(--secondary-color)' }}>
-                            NVidia GeForce RTX 4090 32GB 2520GHz
-                        </TableCell>
-                        <TableCell align='center' sx={{ borderBottom: '2px solid var(--secondary-color)' }}>
-                            <IconButton aria-label="edit" size="small">
-                                <CloseRoundedIcon sx={{ color: 'var(--secondary-color)' }} />
-                            </IconButton>
-                        </TableCell>
-                    </TableRow>
+                    {["GPU", "CPU", "Motherboard", "PSU", "Storage", "RAM", "Case", "Cooling System"].map((component) => (
+                        <TableRow key={component} sx={{ backgroundColor: 'var(--softWhite-color)' }}>
+                            <TableCell align='center' sx={{ borderBottom: '2px solid var(--secondary-color)', width: '140px' }}>
+                                {component}
+                            </TableCell>
+                            <TableCell align='left' sx={{ borderBottom: '2px solid var(--secondary-color)', width: '300px', padding: '0 16px' }}>
+                                <Button
+                                    variant="contained"
+                                    startIcon={<AddRoundedIcon />}
+                                    sx={{
+                                        backgroundColor: 'var(--secondary-color)',
+                                        color: 'var(--softWhite-color)',
+                                        borderRadius: '8px',
+                                        width: '100%',
+                                    }}
+                                    onClick={() => handleAddClick(component.toLowerCase())}
+                                >
+                                    Choose a {component}
+                                </Button>
+                            </TableCell>
+                            <TableCell align='left' sx={{ borderBottom: '2px solid var(--secondary-color)' }} />
+                            <TableCell align='center' sx={{ borderBottom: '2px solid var(--secondary-color)' }}>
+                                <IconButton aria-label="edit" size="small">
+                                    <CloseRoundedIcon sx={{ color: 'var(--secondary-color)' }} />
+                                </IconButton>
+                            </TableCell>
+                        </TableRow>
+                    ))}
                 </TableBody>
             </Table>
         </TableContainer>

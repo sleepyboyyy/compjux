@@ -4,8 +4,8 @@ import {useNavigate} from "react-router-dom";
 import {Box} from "@mui/material";
 import TableManipulators from "../../components/TableManipulators";
 import StorageTable from "../../components/StorageTable";
-import StorageTablePagination
-    from "../../components/StorageTablePagination";
+import AdminTablePagination
+    from "../../components/AdminTablePagination";
 import {useCollection} from "../../hooks/useCollection";
 
 function AdminStorage() {
@@ -14,7 +14,7 @@ function AdminStorage() {
     const [sortDirection, setSortDirection] = useState<"asc" | "desc">('asc');
     const [page, setPage] = useState(1);
     const [searchQuery, setSearchQuery] = useState("");
-    const rowsPerPage = 6;
+    const rowsPerPage = 7;
 
     // hooks
     const navigate = useNavigate();
@@ -72,7 +72,7 @@ function AdminStorage() {
                             onSearchChange={handleSearchChange}
                         />
                         <StorageTable data={paginatedData} currentCollection={selectedCollection}/>
-                        <StorageTablePagination
+                        <AdminTablePagination
                             page={page}
                             totalPages={totalPages}
                             onPageChange={handlePageChange}

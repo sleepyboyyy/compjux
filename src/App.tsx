@@ -36,6 +36,8 @@ import AdminStorageItemDetails from "./pages/adminStorageItemDetails/AdminStorag
 import AdminStorageAddItem from "./pages/adminStorageAddItem/AdminStorageAddItem";
 import AdminProducts from "./pages/adminProducts/AdminProducts";
 import AdminProductBuilder from "./pages/adminProductBuilder/AdminProductBuilder";
+import ProductBuilderSelectionItemsTable
+    from "./pages/productBuilderSelectionItemsTable/ProductBuilderSelectionItemsTable";
 
 function App() {
     const { state } = useAuthContext();
@@ -105,6 +107,15 @@ function App() {
                     element={
                         <ProtectedRoute>
                             <AdminProductBuilder />
+                        </ProtectedRoute>
+                    }
+                />
+
+                <Route
+                    path="admin-products/product-builder/select/:componentType"
+                    element={
+                        <ProtectedRoute>
+                            <ProductBuilderSelectionItemsTable />
                         </ProtectedRoute>
                     }
                 />

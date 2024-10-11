@@ -7,7 +7,7 @@ interface StorageTablePaginationProps {
     onPageChange: (event: React.ChangeEvent<unknown>, value: number) => void;
 }
 
-function StorageTablePagination({ page, totalPages, onPageChange }: StorageTablePaginationProps) {
+function AdminTablePagination({ page, totalPages, onPageChange }: StorageTablePaginationProps) {
     return (
         <Box
             display="flex"
@@ -38,4 +38,4 @@ function StorageTablePagination({ page, totalPages, onPageChange }: StorageTable
     );
 }
 
-export default StorageTablePagination;
+export default AdminTablePagination;
