@@ -1,12 +1,11 @@
 import React, {useMemo, useState} from 'react';
-import {useParams} from "react-router-dom";
+import {useLocation, useNavigate, useParams} from "react-router-dom";
 import {useCollection} from "../../hooks/useCollection";
 import AdminNavigation from "../../components/AdminNavigation";
 import {
-    Box, Dialog, DialogActions, DialogContent, DialogTitle, Divider, FormControlLabel, Grid, InputAdornment, MenuItem,
+    Box, Dialog, DialogActions, DialogContent, DialogTitle, Divider, FormControlLabel, Grid, InputAdornment,
     Paper,
     Radio, RadioGroup,
-    Select,
     Table,
     TableBody,
     TableCell,
@@ -18,7 +17,7 @@ import {
 import AdminTablePagination from "../../components/AdminTablePagination";
 import Button from "@mui/material/Button";
 import {Search, Sort} from "@mui/icons-material";
-import AddCircleIcon from "@mui/icons-material/AddCircle";
+import {usePCComponentsContext} from "../../context/PCComponentsContext";
 
 type ComponentProperties = {
     [key: string]: string[];
@@ -30,7 +29,7 @@ const componentProperties: ComponentProperties = {
     case: ['brand', 'model', 'form_factor', 'tempered_glass', 'rgb_support', 'psu_shroud', 'price'],
     cooling_system: ['brand', 'model', 'fan_size', 'noise_level', 'rgb_lighting', 'rpm_range', 'type', 'price'],
     motherboard: ['brand', 'model', 'chipset', 'form_factor', 'memory.type', 'memory.slots', 'memory.max_size', 'memory.max_speed', 'price'],
-    psu: ['brand', 'model', 'form_factor', 'efficiency_rating', 'power_output', 'price'],
+    psu: ['brand', 'model', 'efficiency_rating', 'form_factor', 'power_output', 'price'],
     ram: ['brand', 'model', 'form_factor', 'memory_type', 'voltage', 'capacity.total_capacity', 'price'],
     storage: ['brand', 'model', 'form_factor', 'capacity', 'endurance', 'power_consumption.idle', 'read_speed', 'write_speed', 'type', 'price']
     // Add properties for other components...
@@ -44,13 +43,17 @@ function ProductBuilderSelectionItemsTable() {
     const [sortType, setSortType] = useState<string>('none');
     const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc');
     const [isSortDialogOpen, setSortDialogOpen] = useState(false);
+    // Add item dialog state
+    const [isAddItemDialogOpen, setAddItemDialogOpen] = useState(false);
 
     const { componentType } = useParams<{ componentType: string }>();
+    const { onUpdateComponent } = usePCComponentsContext();
+    const navigate = useNavigate();
+
     // Use the custom hook to fetch data
     const { documents, error } = useCollection(componentType!, null, "asc");
-    const properties = componentProperties[componentType!] || [];
     const itemsPerPage = 7;
-
+    const properties = componentProperties[componentType!] || [];
 
     // Filter and sort documents based on search term and sort options
     const filteredAndSortedDocuments = useMemo(() => {
@@ -114,6 +117,23 @@ function ProductBuilderSelectionItemsTable() {
         setSortDialogOpen(false);
     };
 
+    // Handlers for add item dialog
+    const handleAddItemDialogOpen = () => {
+        setAddItemDialogOpen(true);
+    }
+
+    const handleAddItemDialogClose = () => {
+        setAddItemDialogOpen(false);
+    }
+
+    const handleAddItemDialogConfirm = () => {
+        if (componentType && selectedItem) {
+            onUpdateComponent(componentType as any, selectedItem);
+            navigate('/admin-products/product-builder');
+        }
+        setAddItemDialogOpen(false);
+    }
+
     return (
         <AdminNavigation page="PRODUCTS">
             <Box sx={{ width: '80%', margin: '64px auto' }}>
@@ -145,7 +165,7 @@ function ProductBuilderSelectionItemsTable() {
                             variant="contained"
                             color="primary"
                             sx={{ marginTop: '16px', backgroundColor: 'var(--primary-color)' }}
-                            onClick={() => console.log('Add item logic here')}
+                            onClick={handleAddItemDialogOpen}
                         >
                             Add Item
                         </Button>
@@ -195,82 +215,6 @@ function ProductBuilderSelectionItemsTable() {
                             Sort
                         </Button>
                     </Box>
-
-                    {/* Sort Dialog */}
-                    <Dialog open={isSortDialogOpen} onClose={handleSortDialogClose}>
-                        <DialogTitle sx={{ color: 'var(--secondary-color)' }}>Sort Options</DialogTitle>
-                        <DialogContent sx={{ px: 3 }}>
-                            {/* Sort Type Section */}
-                            <Box mb={2}>
-                                <Box sx={{ color: 'var(--secondary-color)', mb: 1 }}>Sort Type</Box>
-                                <Grid container spacing={2} justifyContent="center">
-                                    <Grid item>
-                                        <RadioGroup row value={sortType} onChange={(e) => setSortType(e.target.value)}>
-                                            <FormControlLabel
-                                                value="none"
-                                                control={<Radio sx={{ color: 'var(--primary-color)', '&.Mui-checked': { color: 'var(--primary-color)' } }} />}
-                                                label="None"
-                                                sx={{ color: 'var(--secondary-color)' }}
-                                            />
-                                            <FormControlLabel
-                                                value="price"
-                                                control={<Radio sx={{ color: 'var(--primary-color)', '&.Mui-checked': { color: 'var(--primary-color)' } }} />}
-                                                label="Price"
-                                                sx={{ color: 'var(--secondary-color)' }}
-                                            />
-                                            <FormControlLabel
-                                                value="quantity"
-                                                control={<Radio sx={{ color: 'var(--primary-color)', '&.Mui-checked': { color: 'var(--primary-color)' } }} />}
-                                                label="Quantity"
-                                                sx={{ color: 'var(--secondary-color)' }}
-                                            />
-                                        </RadioGroup>
-                                    </Grid>
-                                </Grid>
-                            </Box>
-
-                            {/* Divider */}
-                            <Divider sx={{ width: '35%', mx: 'auto', mb: 2, backgroundColor: "var(--secondary-color)" }} />
-
-                            {/* Sort Direction Section */}
-                            <Box>
-                                <Box sx={{ color: 'var(--secondary-color)', mb: 1 }}>Sort Direction</Box>
-                                <Grid container spacing={2} justifyContent="center">
-                                    <Grid item>
-                                        <RadioGroup row value={sortDirection} onChange={(e) => setSortDirection(e.target.value as 'asc' | 'desc')}>
-                                            <FormControlLabel
-                                                value="asc"
-                                                control={<Radio sx={{ color: 'var(--primary-color)', '&.Mui-checked': { color: 'var(--primary-color)' } }} />}
-                                                label="Ascending"
-                                                sx={{ color: 'var(--secondary-color)' }}
-                                            />
-                                            <FormControlLabel
-                                                value="desc"
-                                                control={<Radio sx={{ color: 'var(--primary-color)', '&.Mui-checked': { color: 'var(--primary-color)' } }} />}
-                                                label="Descending"
-                                                sx={{ color: 'var(--secondary-color)' }}
-                                            />
-                                        </RadioGroup>
-                                    </Grid>
-                                </Grid>
-                            </Box>
-                        </DialogContent>
-                        <DialogActions>
-                            <Button onClick={handleSortDialogClose} sx={{ color: 'var(--secondary-color)', marginRight: "8px" }}>
-                                Cancel
-                            </Button>
-                            <Button
-                                onClick={handleSortConfirm}
-                                sx={{
-                                    backgroundColor: '#25A933',
-                                    color: 'var(--softWhite-color)',
-                                    '&:hover': { opacity: 0.7, backgroundColor: "#25A933" },
-                                }}
-                            >
-                                Confirm
-                            </Button>
-                        </DialogActions>
-                    </Dialog>
                 </Box>
 
                 <TableContainer component={Paper} sx={{ width: '95%', margin: '0 auto', borderRadius: 0 }}>
@@ -319,7 +263,102 @@ function ProductBuilderSelectionItemsTable() {
                     onPageChange={handlePageChange}
                 />
 
+                {/*  DIALOGS  */}
+                {/*  Add Item Dialog  */}
+                <Dialog open={isAddItemDialogOpen} onClose={handleAddItemDialogClose}>
+                    <DialogTitle sx={{ color: 'var(--secondary-color)' }}>Are you sure you want to add <strong>{selectedItem && selectedItem.brand} {selectedItem && selectedItem.model}</strong> as a GPU?</DialogTitle>
+                    <DialogActions>
+                        <Button onClick={handleAddItemDialogClose} sx={{ color: 'var(--secondary-color)', marginRight: "8px" }}>
+                            Cancel
+                        </Button>
+                        <Button
+                            onClick={handleAddItemDialogConfirm}
+                            sx={{
+                                backgroundColor: '#25A933',
+                                color: 'var(--softWhite-color)',
+                                '&:hover': { opacity: 0.7, backgroundColor: "#25A933" }, // Adjust hover opacity
+                            }}
+                        >
+                            Confirm
+                        </Button>
+                    </DialogActions>
+                </Dialog>
 
+                {/* Sort Dialog */}
+                <Dialog open={isSortDialogOpen} onClose={handleSortDialogClose}>
+                    <DialogTitle sx={{ color: 'var(--secondary-color)' }}>Sort Options</DialogTitle>
+                    <DialogContent sx={{ px: 3 }}>
+                        {/* Sort Type Section */}
+                        <Box mb={2}>
+                            <Box sx={{ color: 'var(--secondary-color)', mb: 1 }}>Sort Type</Box>
+                            <Grid container spacing={2} justifyContent="center">
+                                <Grid item>
+                                    <RadioGroup row value={sortType} onChange={(e) => setSortType(e.target.value)}>
+                                        <FormControlLabel
+                                            value="none"
+                                            control={<Radio sx={{ color: 'var(--primary-color)', '&.Mui-checked': { color: 'var(--primary-color)' } }} />}
+                                            label="None"
+                                            sx={{ color: 'var(--secondary-color)' }}
+                                        />
+                                        <FormControlLabel
+                                            value="price"
+                                            control={<Radio sx={{ color: 'var(--primary-color)', '&.Mui-checked': { color: 'var(--primary-color)' } }} />}
+                                            label="Price"
+                                            sx={{ color: 'var(--secondary-color)' }}
+                                        />
+                                        <FormControlLabel
+                                            value="quantity"
+                                            control={<Radio sx={{ color: 'var(--primary-color)', '&.Mui-checked': { color: 'var(--primary-color)' } }} />}
+                                            label="Quantity"
+                                            sx={{ color: 'var(--secondary-color)' }}
+                                        />
+                                    </RadioGroup>
+                                </Grid>
+                            </Grid>
+                        </Box>
+
+                        {/* Divider */}
+                        <Divider sx={{ width: '35%', mx: 'auto', mb: 2, backgroundColor: "var(--secondary-color)" }} />
+
+                        {/* Sort Direction Section */}
+                        <Box>
+                            <Box sx={{ color: 'var(--secondary-color)', mb: 1 }}>Sort Direction</Box>
+                            <Grid container spacing={2} justifyContent="center">
+                                <Grid item>
+                                    <RadioGroup row value={sortDirection} onChange={(e) => setSortDirection(e.target.value as 'asc' | 'desc')}>
+                                        <FormControlLabel
+                                            value="asc"
+                                            control={<Radio sx={{ color: 'var(--primary-color)', '&.Mui-checked': { color: 'var(--primary-color)' } }} />}
+                                            label="Ascending"
+                                            sx={{ color: 'var(--secondary-color)' }}
+                                        />
+                                        <FormControlLabel
+                                            value="desc"
+                                            control={<Radio sx={{ color: 'var(--primary-color)', '&.Mui-checked': { color: 'var(--primary-color)' } }} />}
+                                            label="Descending"
+                                            sx={{ color: 'var(--secondary-color)' }}
+                                        />
+                                    </RadioGroup>
+                                </Grid>
+                            </Grid>
+                        </Box>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={handleSortDialogClose} sx={{ color: 'var(--secondary-color)', marginRight: "8px" }}>
+                            Cancel
+                        </Button>
+                        <Button
+                            onClick={handleSortConfirm}
+                            sx={{
+                                backgroundColor: '#25A933',
+                                color: 'var(--softWhite-color)',
+                                '&:hover': { opacity: 0.7, backgroundColor: "#25A933" },
+                            }}
+                        >
+                            Confirm
+                        </Button>
+                    </DialogActions>
+                </Dialog>
             </Box>
         </AdminNavigation>
     );

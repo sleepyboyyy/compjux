@@ -3,33 +3,19 @@ import AdminNavigation from "../../components/AdminNavigation";
 import {
     Box,
     IconButton,
-    Paper,
-    Table,
-    TableBody,
-    TableCell,
-    TableContainer,
-    TableHead,
-    TableRow,
     Typography
 } from "@mui/material";
-import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import Button from "@mui/material/Button";
 import AdminProductBuilderTable from "../../components/AdminProductBuilderTable";
 import ArrowBackRoundedIcon from "@mui/icons-material/ArrowBackRounded";
 import {useNavigate} from "react-router-dom";
+import {ComponentKey, usePCComponentsContext} from "../../context/PCComponentsContext";
 
 function AdminProductBuilder() {
-    // Components state
-    const [cpu, setCpu] = useState("");
-    const [gpu, setGpu] = useState("");
-    const [ram, setRam] = useState("");
-    const [storage, setStorage] = useState("");
-    const [psu, setPsu] = useState("");
-    const [pcCase, setPcCase] = useState("");
-    const [cooler, setCooler] = useState("");
-    const [motherboard, setMotherboard] = useState("");
-
     const navigate = useNavigate();
+    const { selectedComponents, onUpdateComponent } = usePCComponentsContext();
+
+    let isEverythingSelected = helperCheckComponentsState(selectedComponents);
 
     return (
         <AdminNavigation page="PRODUCTS">
@@ -67,9 +53,27 @@ function AdminProductBuilder() {
                     width: '65%',
                     margin: '16px auto 0 auto'
                 }}>
-                    <Button sx={{ width: '100%', padding: '18px 0', backgroundColor: 'var(--secondary-color)', color: 'var(--softWhite-color)' }}>
+                    {isEverythingSelected && <Button sx={{
+                        width: '100%',
+                        padding: '18px 0',
+                        backgroundColor: 'var(--secondary-color)',
+                        color: 'var(--softWhite-color)',
+                        '&:hover': {opacity: 1, backgroundColor: "var(--primary-color)"}
+                    }}>
                         Build Product
-                    </Button>
+                    </Button>}
+
+                    {!isEverythingSelected && <Button
+                        disabled
+                        sx={{
+                            width: '100%',
+                            padding: '18px 0',
+                            backgroundColor: 'var(--softGray-color)',
+                            color: 'var(--softWhite-color)',
+                            '&:hover': {opacity: 1, backgroundColor: "var(--primary-color)"}
+                        }}>
+                        Build Product
+                    </Button>}
                 </Box>
             </Box>
         </AdminNavigation>
@@ -77,3 +81,7 @@ function AdminProductBuilder() {
 }
 
 export default AdminProductBuilder;
+
+const helperCheckComponentsState = (components: Record<ComponentKey, any>): boolean => {
+    return Object.values(components).every(component => component !== null);
+};

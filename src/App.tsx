@@ -38,6 +38,7 @@ import AdminProducts from "./pages/adminProducts/AdminProducts";
 import AdminProductBuilder from "./pages/adminProductBuilder/AdminProductBuilder";
 import ProductBuilderSelectionItemsTable
     from "./pages/productBuilderSelectionItemsTable/ProductBuilderSelectionItemsTable";
+import {PCComponentsProvider} from "./context/PCComponentsContext";
 
 function App() {
     const { state } = useAuthContext();
@@ -138,9 +139,11 @@ function App() {
     )
 
     return (
-        <div className="App">
-            { state.authIsReady ? <RouterProvider router={router} /> : <div>Loading...</div> }
-        </div>
+        <PCComponentsProvider>
+            <div className="App">
+                { state.authIsReady ? <RouterProvider router={router} /> : <div>Loading...</div> }
+            </div>
+        </PCComponentsProvider>
     );
 }
 
