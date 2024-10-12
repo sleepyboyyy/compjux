@@ -1,11 +1,11 @@
 import React from 'react';
-import {useAuthContext} from "../../hooks/useAuthContext";
-import {useDocument} from "../../hooks/useDocument";
+import {useAuthContext} from "../hooks/useAuthContext";
+import {useValidate} from "../hooks/useValidate";
 import {Navigate} from "react-router-dom";
 
 function AdminLoginProtection({ children } : { children:JSX.Element }) {
     const { state } = useAuthContext();
-    const { document, isLoading } = useDocument('users', state.user?.uid);
+    const { document, isLoading } = useValidate('users', state.user?.uid);
 
     if (state.user) {
         if (isLoading) {
@@ -14,7 +14,7 @@ function AdminLoginProtection({ children } : { children:JSX.Element }) {
 
         if (document) {
             if (document.role === "admin") {
-                return (<Navigate to="/adminDashboard" replace />);
+                return (<Navigate to="/admin-dashboard" replace />);
             } else {
                 return (<Navigate to="/" replace />);
             }

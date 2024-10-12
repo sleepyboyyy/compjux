@@ -20,18 +20,25 @@ import Signup from "./pages/Signup/Signup";
 import ClientDashboard from "./pages/Client Dashboard/ClientDashboard";
 
 // admin pages
-import AdministratorLogin from "./developer_pages/administratorLogin/AdministratorLogin";
-import CreateAdministrator from "./developer_pages/createAdministrator/CreateAdministrator";
-import AdminDashboard from "./developer_pages/adminDashboard/AdminDashboard";
+import AdministratorLogin from "./pages/administratorLogin/AdministratorLogin";
+import CreateAdministrator from "./pages/createAdministrator/CreateAdministrator";
+import AdminDashboard from "./pages/adminDashboard/AdminDashboard";
 
 // components
-import AdminStorage from "./developer_pages/adminStorage/AdminStorage";
+import AdminStorage from "./pages/adminStorage/AdminStorage";
 
 
 import {useAuthContext} from "./hooks/useAuthContext";
-import ProtectedRoute from "./components/developer_components/ProtectedRoute";
-import AdminLoginProtection from "./components/developer_components/AdminLoginProtection";
-import ValidateClient from "./components/client_components/ValidateClient";
+import ProtectedRoute from "./components/ProtectedRoute";
+import AdminLoginProtection from "./components/AdminLoginProtection";
+import ValidateClient from "./components/ValidateClient";
+import AdminStorageItemDetails from "./pages/adminStorageItemDetails/AdminStorageItemDetails";
+import AdminStorageAddItem from "./pages/adminStorageAddItem/AdminStorageAddItem";
+import AdminProducts from "./pages/adminProducts/AdminProducts";
+import AdminProductBuilder from "./pages/adminProductBuilder/AdminProductBuilder";
+import ProductBuilderSelectionItemsTable
+    from "./pages/productBuilderSelectionItemsTable/ProductBuilderSelectionItemsTable";
+import {PCComponentsProvider} from "./context/PCComponentsContext";
 
 function App() {
     const { state } = useAuthContext();
@@ -40,58 +47,103 @@ function App() {
     const router = createBrowserRouter(
         createRoutesFromElements(
             <>
-                    {/*TODO: create "admin only" protected wrapper component*/}
-                    <Route
-                        path="administratorLogin"
-                        element={
-                            <AdminLoginProtection>
-                                <AdministratorLogin />
-                            </AdminLoginProtection>
-                        }
-                    />
-                    <Route
-                        path="createAdmin"
-                        element={<CreateAdministrator/>}
-                    />
-                    <Route
-                        path="adminDashboard"
-                        element={
-                            <ProtectedRoute>
-                                <AdminDashboard/>
-                            </ProtectedRoute>
-                        }
-                    />
-                    <Route
-                        path="admin_storage"
-                        element={
+                <Route
+                    path="administrator-login"
+                    element={
+                        <AdminLoginProtection>
+                            <AdministratorLogin />
+                        </AdminLoginProtection>
+                    }
+                />
+                <Route
+                    path="create-admin"
+                    element={<CreateAdministrator/>}
+                />
+                <Route
+                    path="admin-dashboard"
+                    element={
                         <ProtectedRoute>
-                            <AdminStorage/>
+                            <AdminDashboard/>
                         </ProtectedRoute>
+                    }
+                />
+                <Route
+                    path="admin-storage"
+                    element={
+                    <ProtectedRoute>
+                        <AdminStorage/>
+                    </ProtectedRoute>
+                    }
+                />
+
+                <Route
+                    path="admin-storage/item/:collection/:id"
+                    element={
+                        <ProtectedRoute>
+                            <AdminStorageItemDetails />
+                        </ProtectedRoute>
+                    }
+                />
+
+                <Route
+                    path="admin-storage/addItem"
+                    element={
+                        <ProtectedRoute>
+                            <AdminStorageAddItem />
+                        </ProtectedRoute>
+                    }
+                />
+
+                <Route
+                    path="admin-products"
+                    element={
+                        <ProtectedRoute>
+                            <AdminProducts />
+                        </ProtectedRoute>
+                    }
+                />
+
+                <Route
+                    path="admin-products/product-builder"
+                    element={
+                        <ProtectedRoute>
+                            <AdminProductBuilder />
+                        </ProtectedRoute>
+                    }
+                />
+
+                <Route
+                    path="admin-products/product-builder/select/:componentType"
+                    element={
+                        <ProtectedRoute>
+                            <ProductBuilderSelectionItemsTable />
+                        </ProtectedRoute>
+                    }
+                />
+
+                <Route path="/" element={<Rootlayout/>}>
+                    <Route index element={<Home/>}/>
+                    <Route path="login" element={ state.user ? <Navigate to="/account-settings" replace /> : <Login/> }/>
+                    <Route path="signup" element={ state.user ? <Navigate to="/account-settings" replace /> : <Signup/> }/>
+                    <Route
+                        path="account-settings"
+                        element={
+                        <ValidateClient>
+                            <ClientDashboard />
+                        </ValidateClient>
                         }
                     />
-
-                    <Route path="/" element={<Rootlayout/>}>
-                        <Route index element={<Home/>}/>
-                        <Route path="login" element={ state.user ? <Navigate to="/account_settings" replace /> : <Login/> }/>
-                        <Route path="signup" element={ state.user ? <Navigate to="/account_settings" replace /> : <Signup/> }/>
-                        <Route
-                            path="account_settings"
-                            element={
-                            <ValidateClient>
-                                <ClientDashboard />
-                            </ValidateClient>
-                            }
-                        />
-                    </Route>
-
+                </Route>
             </>
         )
     )
 
     return (
-        <div className="App">
-            { state.authIsReady ? <RouterProvider router={router} /> : <div>Loading...</div> }
-        </div>
+        <PCComponentsProvider>
+            <div className="App">
+                { state.authIsReady ? <RouterProvider router={router} /> : <div>Loading...</div> }
+            </div>
+        </PCComponentsProvider>
     );
 }
 

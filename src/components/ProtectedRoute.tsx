@@ -1,11 +1,11 @@
 import { useContext } from 'react';
-import { AuthContext } from "../../context/AuthContext";
+import { AuthContext } from "../context/AuthContext";
 import { Navigate } from "react-router-dom";
-import { useDocument } from "../../hooks/useDocument";
+import { useValidate } from "../hooks/useValidate";
 
 function ProtectedRoute({children}: { children:JSX.Element ; }) {
     const { state } = useContext(AuthContext);
-    const { document, isLoading } = useDocument('users', state.user?.uid)
+    const { document, isLoading } = useValidate('users', state.user?.uid)
 
     if (state.user) {
         // Wait for document to load

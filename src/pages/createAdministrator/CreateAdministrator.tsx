@@ -52,7 +52,7 @@ function CreateAdministrator() {
         await signUserUp(dataObject);
 
         // Redirect to admin login
-        navigate("/administratorLogin");
+        navigate("/administrator-login");
     }
 
 

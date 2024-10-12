@@ -1,8 +1,7 @@
-import React from 'react';
-import {useAuthContext} from "../../../hooks/useAuthContext";
+import React, {useEffect, useReducer} from 'react';
+import {useAuthContext} from "../hooks/useAuthContext";
 
 // Material UI
-import {ListItemIcon, MenuItem, Typography} from "@mui/material";
 
 // Material Icons
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
@@ -16,16 +15,65 @@ import InsertChartOutlinedIcon from '@mui/icons-material/InsertChartOutlined';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 
-import logo from '../../../assets/logo/logo.png'
+import logo from '../assets/logo/logo.png'
 
 // Styles
-import './AdminNavigation.css'
-import {Link, NavLink} from "react-router-dom";
+import './AdminNavigationStyles/AdminNavigation.css'
+import { NavLink } from "react-router-dom";
 
 //TODO: finish vertical navigation and add Outlet logic
+interface AdminNavigationProps {
+    children: JSX.Element;
+    page: "DASHBOARD" | "STORAGE" | "PRODUCTS";
+}
 
-function AdminNavigation({ children }: { children: JSX.Element}) {
+interface headerState {
+    currentPage: string;
+    headerContent: string;
+    subContent: string;
+}
+
+interface dashboardAction {
+    type: 'DASHBOARD';
+}
+
+interface storageAction {
+    type: 'STORAGE';
+}
+
+interface ProductsAction {
+    type: 'PRODUCTS';
+}
+
+type headerAction = dashboardAction | storageAction | ProductsAction;
+
+const headerReducer = (textHeader: headerState, action: headerAction) => {
+    switch(action.type) {
+        case "DASHBOARD":
+            return { currentPage: "dashboard", headerContent: "Good Morning", subContent: "Welcome to your Dashboard" }
+        case "STORAGE":
+            return { currentPage: "storage", headerContent: "Storage", subContent: "" }
+        case "PRODUCTS":
+            return { currentPage: "products", headerContent: "Products", subContent: "" }
+        default:
+            return textHeader;
+    }
+}
+
+function AdminNavigation(props: AdminNavigationProps) {
     const { state } = useAuthContext();
+    //TODO setup a reducer to change heading text depending on current page
+    const [ textHeader, headerDispatch ] = useReducer(headerReducer, {
+        currentPage: "",
+        headerContent: "",
+        subContent: "",
+    });
+
+    useEffect(() => {
+        headerDispatch({ type: props.page })
+    }, []);
+
+    document.body.style.backgroundColor = '#E6E6E6';
 
     return (
         <div className="adminNavigation-container">
@@ -41,7 +89,7 @@ function AdminNavigation({ children }: { children: JSX.Element}) {
                     <div className="adminNavigation-vertical_navigation_container adminNavigation-vertical_main_navigation">
                         <ul>
                             <li>
-                                <NavLink to="/adminDashboard">
+                                <NavLink to="/admin-dashboard">
                                     <div className="menu_link_image_container">
                                         <DashboardOutlinedIcon sx={{fontsize: 18}}/>
                                     </div>
@@ -50,7 +98,7 @@ function AdminNavigation({ children }: { children: JSX.Element}) {
                             </li>
 
                             <li>
-                                <NavLink to="admin_orders">
+                                <NavLink to="admin-orders">
                                     <div className="menu_link_image_container">
                                         <ShoppingBasketOutlinedIcon sx={{fontsize: 18}}/>
                                     </div>
@@ -59,7 +107,7 @@ function AdminNavigation({ children }: { children: JSX.Element}) {
                             </li>
 
                             <li>
-                                <NavLink to="/admin_products">
+                                <NavLink to="/admin-products">
                                     <div className="menu_link_image_container">
                                         <StoreMallDirectoryOutlinedIcon sx={{fontsize: 18}}/>
                                     </div>
@@ -68,7 +116,7 @@ function AdminNavigation({ children }: { children: JSX.Element}) {
                             </li>
 
                             <li>
-                                <NavLink to="/admin_storage">
+                                <NavLink to="/admin-storage">
                                     <div className="menu_link_image_container">
                                         <WarehouseOutlinedIcon sx={{fontsize: 18}}/>
                                     </div>
@@ -77,7 +125,7 @@ function AdminNavigation({ children }: { children: JSX.Element}) {
                             </li>
 
                             <li>
-                                <NavLink to="/admin_statistics">
+                                <NavLink to="/admin-statistics">
                                     <div className="menu_link_image_container">
                                         <InsertChartOutlinedIcon sx={{fontsize: 18}}/>
                                     </div>
@@ -89,11 +137,10 @@ function AdminNavigation({ children }: { children: JSX.Element}) {
                 </div>
 
                 <div className="adminNavigation-vertical_bottom_content">
-                    <div
-                        className="adminNavigation-vertical_navigation_container adminNavigation-vertical_bottom_navigation">
+                    <div className="adminNavigation-vertical_navigation_container adminNavigation-vertical_bottom_navigation">
                         <ul>
                             <li>
-                                <NavLink to="/admin_help">
+                                <NavLink to="/admin-help">
                                     <div className="menu_link_image_container">
                                         <HelpOutlineIcon sx={{fontsize: 18}}/>
                                     </div>
@@ -102,7 +149,7 @@ function AdminNavigation({ children }: { children: JSX.Element}) {
                             </li>
 
                             <li>
-                                <NavLink to="/admin_account_settings">
+                                <NavLink to="/admin-account-settings">
                                     <div className="menu_link_image_container">
                                         <SettingsOutlinedIcon sx={{fontsize: 18}}/>
                                     </div>
@@ -117,8 +164,8 @@ function AdminNavigation({ children }: { children: JSX.Element}) {
             <div className="adminNavigation-main_content">
                 <nav className="adminNavigation-horizontal">
                     <div className="adminNavigation-horizontal_welcomeText">
-                        <h3 className="mb-0">Good Morning {state.user?.displayName}</h3>
-                        <p className="mb-0">Welcome to your Dashboard</p>
+                        <h3 className="mb-0">{ textHeader.headerContent } { textHeader.currentPage === "dashboard" && state.user?.displayName}</h3>
+                        <p className="mb-0">{ textHeader.subContent }</p>
                     </div>
                     <div className="adminNavigation-horizontal_accountContent">
                         <MessageIcon/>
@@ -128,8 +175,7 @@ function AdminNavigation({ children }: { children: JSX.Element}) {
                 </nav>
 
                 <div className="adminNavigation-non_navigational_content">
-                    {children}
-                    <div className="test"></div>
+                    {props.children}
                 </div>
             </div>
         </div>

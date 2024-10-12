@@ -1,14 +1,8 @@
-import {FormEvent, useContext, useEffect, useRef, useState} from "react";
+import {FormEvent, useState} from "react";
 import {useSignIn} from "../../hooks/useSignIn";
-import {AuthContext} from "../../context/AuthContext";
-import {useNavigate} from "react-router-dom";
-import {useDocument} from "../../hooks/useDocument";
 
 
 function AdministratorLogin() {
-    //const { state } = useContext(AuthContext);
-    //
-
     // State Management
     const [devEmail, setDevEmail] = useState("");
     const [devPassword, setDevPassword] = useState("");
