@@ -5,6 +5,7 @@ export type ComponentKey = 'cpu' | 'gpu' | 'ram' | 'storage' | 'psu' | 'case' | 
 interface PCComponentsContextProps {
     selectedComponents: Record<ComponentKey, any>;
     onUpdateComponent: (componentType: ComponentKey, selectedItem: any) => void;
+    resetComponents: () => void;
 }
 
 const PCComponentsContext = createContext<PCComponentsContextProps | undefined>(undefined);
@@ -32,8 +33,21 @@ export const PCComponentsProvider = ({ children }: PCComponentsProviderProps) =>
         }));
     };
 
+    const resetComponents = () => {
+        setSelectedComponents({
+            cpu: null,
+            gpu: null,
+            ram: null,
+            storage: null,
+            psu: null,
+            case: null,
+            cooling_system: null,
+            motherboard: null,
+        });
+    };
+
     return (
-        <PCComponentsContext.Provider value={{ selectedComponents, onUpdateComponent }}>
+        <PCComponentsContext.Provider value={{ selectedComponents, onUpdateComponent, resetComponents }}>
             {children}
         </PCComponentsContext.Provider>
     );

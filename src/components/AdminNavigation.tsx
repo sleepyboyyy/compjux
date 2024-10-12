@@ -74,7 +74,6 @@ function AdminNavigation(props: AdminNavigationProps) {
     }, []);
 
     document.body.style.backgroundColor = '#E6E6E6';
-    console.log(textHeader.currentPage);
 
     return (
         <div className="adminNavigation-container">

@@ -1,7 +1,7 @@
-import React, {useState} from 'react';
+import {doc, updateDoc} from "firebase/firestore";
 import AdminNavigation from "../../components/AdminNavigation";
 import {
-    Box,
+    Box, Dialog, DialogActions, DialogTitle,
     IconButton,
     Typography
 } from "@mui/material";
@@ -10,12 +10,72 @@ import AdminProductBuilderTable from "../../components/AdminProductBuilderTable"
 import ArrowBackRoundedIcon from "@mui/icons-material/ArrowBackRounded";
 import {useNavigate} from "react-router-dom";
 import {ComponentKey, usePCComponentsContext} from "../../context/PCComponentsContext";
+import {useFirestore} from "../../hooks/useFirestore";
+import {projectFirestore} from "../../firebase/firebase";
+import React, {useState} from "react";
 
 function AdminProductBuilder() {
+    const [isAddProductDialogOpen, setAddProductDialogOpen] = useState(false);
+
     const navigate = useNavigate();
-    const { selectedComponents, onUpdateComponent } = usePCComponentsContext();
+    const { selectedComponents, resetComponents } = usePCComponentsContext();
+    const { addDocument } = useFirestore("products");
 
     let isEverythingSelected = helperCheckComponentsState(selectedComponents);
+
+    // handlers
+    const handleBuildProduct = async () => {
+        // Calculate product total price
+        const totalPrice = Object.values(selectedComponents).reduce((sum, component) => {
+            return sum + component.price;
+        }, 0) * 1.4;
+
+        const productData = {
+            gpu: selectedComponents.gpu.id,
+            cpu: selectedComponents.cpu.id,
+            psu: selectedComponents.psu.id,
+            ram: selectedComponents.ram.id,
+            case: selectedComponents.case.id,
+            storage: selectedComponents.storage.id,
+            cooling_system: selectedComponents.cooling_system.id,
+            motherboard: selectedComponents.motherboard.id,
+            total_price: totalPrice
+        };
+
+        try {
+            // Add product to 'products' collection
+            const addedProductRef = await addDocument(productData);
+            if (!addedProductRef || !addedProductRef.id) {
+                throw new Error("Failed to get the added product ID.");
+            }
+            const addedProductId = addedProductRef.id;
+
+            // Update components
+            for (const key in selectedComponents) {
+                const component = selectedComponents[key as ComponentKey];
+                const currentDoc = doc(projectFirestore, key, component.id);
+                const updates = {
+                    quantity: component.quantity - 1,
+                    used_in_products: [...(component.used_in_products || []), addedProductId]
+                };
+                await updateDoc(currentDoc, updates);
+            }
+
+            // Reset selected components and navigate back
+            resetComponents();
+            navigate('/admin-products');
+        } catch (e) {
+            console.error("Error adding product: ", e);
+        }
+    }
+
+    const handleAddProductDialogOpen = () => {
+        setAddProductDialogOpen(true);
+    }
+
+    const handleAddProductDialogClose = () => {
+        setAddProductDialogOpen(false);
+    }
 
     return (
         <AdminNavigation page="PRODUCTS">
@@ -53,13 +113,15 @@ function AdminProductBuilder() {
                     width: '65%',
                     margin: '16px auto 0 auto'
                 }}>
-                    {isEverythingSelected && <Button sx={{
-                        width: '100%',
-                        padding: '18px 0',
-                        backgroundColor: 'var(--secondary-color)',
-                        color: 'var(--softWhite-color)',
-                        '&:hover': {opacity: 1, backgroundColor: "var(--primary-color)"}
-                    }}>
+                    {isEverythingSelected && <Button
+                        onClick={handleAddProductDialogOpen}
+                        sx={{
+                            width: '100%',
+                            padding: '18px 0',
+                            backgroundColor: 'var(--secondary-color)',
+                            color: 'var(--softWhite-color)',
+                            '&:hover': {opacity: 1, backgroundColor: "var(--primary-color)"}
+                        }}>
                         Build Product
                     </Button>}
 
@@ -70,11 +132,30 @@ function AdminProductBuilder() {
                             padding: '18px 0',
                             backgroundColor: 'var(--softGray-color)',
                             color: 'var(--softWhite-color)',
-                            '&:hover': {opacity: 1, backgroundColor: "var(--primary-color)"}
                         }}>
                         Build Product
                     </Button>}
                 </Box>
+
+                {/*  Add Item Dialog  */}
+                <Dialog open={isAddProductDialogOpen} onClose={handleAddProductDialogClose}>
+                    <DialogTitle sx={{ color: 'var(--secondary-color)' }}>Are you sure you want to create this product?</DialogTitle>
+                    <DialogActions>
+                        <Button onClick={handleAddProductDialogClose} sx={{ color: 'var(--secondary-color)', marginRight: "8px" }}>
+                            Cancel
+                        </Button>
+                        <Button
+                            onClick={handleBuildProduct}
+                            sx={{
+                                backgroundColor: '#25A933',
+                                color: 'var(--softWhite-color)',
+                                '&:hover': { opacity: 0.7, backgroundColor: "#25A933" }, // Adjust hover opacity
+                            }}
+                        >
+                            Confirm
+                        </Button>
+                    </DialogActions>
+                </Dialog>
             </Box>
         </AdminNavigation>
     );

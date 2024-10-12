@@ -25,8 +25,8 @@ type ComponentProperties = {
 
 const componentProperties: ComponentProperties = {
     gpu: ['brand', 'model', 'core_clock_speed.boost', 'core_clock_speed.base', 'memory.type', 'memory.size', 'price'],
-    cpu: ['brand', 'model', 'core_clock_speed.boost', 'core_clock_speed.base', 'cores_and_threads.cores', 'cores_and_threads.threads', 'memory.type', 'memory.speed', 'price'],
-    case: ['brand', 'model', 'form_factor', 'tempered_glass', 'rgb_support', 'psu_shroud', 'price'],
+    cpu: ['brand', 'model', 'core_clock_speed.boost', 'core_clock_speed.base', 'cores_and_threads.cores', 'cores_and_threads.threads', 'memory_support.type', 'memory_support.speed', 'price'],
+    case: ['brand', 'model', 'form_factor', 'price'],
     cooling_system: ['brand', 'model', 'fan_size', 'noise_level', 'rgb_lighting', 'rpm_range', 'type', 'price'],
     motherboard: ['brand', 'model', 'chipset', 'form_factor', 'memory.type', 'memory.slots', 'memory.max_size', 'memory.max_speed', 'price'],
     psu: ['brand', 'model', 'efficiency_rating', 'form_factor', 'power_output', 'price'],

@@ -87,6 +87,8 @@ export const useFirestore = (collectionPath: string) => {
 
             // manage cleanup dispatch
             dispatchIfNotCancelled({ type: 'ADDED_DOCUMENT', payload: addedDocument });
+
+            return addedDocument;
         }
         catch(err:any) {
             dispatchIfNotCancelled({ type: 'ERROR', payload: err.message })
@@ -105,6 +107,7 @@ export const useFirestore = (collectionPath: string) => {
         }
         catch(err:any) {
             dispatchIfNotCancelled({type: 'ERROR', payload: err.message});
+            console.error(`Error updating document with ID: ${id}`, err);
             return null;
         }
     }
