@@ -2,7 +2,7 @@ import {doc, updateDoc} from "firebase/firestore";
 import AdminNavigation from "../../components/AdminNavigation";
 import {
     Box, Dialog, DialogActions, DialogTitle,
-    IconButton,
+    IconButton, TextField,
     Typography
 } from "@mui/material";
 import Button from "@mui/material/Button";
@@ -15,6 +15,9 @@ import {projectFirestore} from "../../firebase/firebase";
 import React, {useState} from "react";
 
 function AdminProductBuilder() {
+    // Text field state
+    const [productName, setProductName] = useState("");
+    const [quantity, setQuantity] = useState(0);
     const [isAddProductDialogOpen, setAddProductDialogOpen] = useState(false);
 
     const navigate = useNavigate();
@@ -28,7 +31,7 @@ function AdminProductBuilder() {
         // Calculate product total price
         const totalPrice = Object.values(selectedComponents).reduce((sum, component) => {
             return sum + component.price;
-        }, 0) * 1.4;
+        }, 0);
 
         const productData = {
             gpu: selectedComponents.gpu.id,
@@ -39,16 +42,14 @@ function AdminProductBuilder() {
             storage: selectedComponents.storage.id,
             cooling_system: selectedComponents.cooling_system.id,
             motherboard: selectedComponents.motherboard.id,
-            total_price: totalPrice
+            total_price: totalPrice,
+            product_name: productName,
+            quantity: quantity
         };
 
         try {
             // Add product to 'products' collection
-            const addedProductRef = await addDocument(productData);
-            if (!addedProductRef || !addedProductRef.id) {
-                throw new Error("Failed to get the added product ID.");
-            }
-            const addedProductId = addedProductRef.id;
+            await addDocument(productData);
 
             // Update components
             for (const key in selectedComponents) {
@@ -56,7 +57,6 @@ function AdminProductBuilder() {
                 const currentDoc = doc(projectFirestore, key, component.id);
                 const updates = {
                     quantity: component.quantity - 1,
-                    used_in_products: [...(component.used_in_products || []), addedProductId]
                 };
                 await updateDoc(currentDoc, updates);
             }
@@ -109,9 +109,37 @@ function AdminProductBuilder() {
                     <AdminProductBuilderTable />
                 </Box>
 
+                <Box
+                    display="flex"
+                    justifyContent="center"
+                    gap={2}
+                    sx={{
+                        width: '65%',
+                        margin: '16px auto 0 auto',
+                    }}
+                >
+                    <TextField
+                        required
+                        onChange={(e) => setProductName(e.target.value)}
+                        id="outlined-required"
+                        label="Product Name"
+                        defaultValue=""
+                        sx={{ width: '50%' }}
+                    />
+
+                    <TextField
+                        required
+                        onChange={(e) => setQuantity(parseInt(e.target.value))}
+                        id="outlined-required"
+                        label="Quantity"
+                        defaultValue=""
+                        sx={{ width: '50%' }}
+                    />
+                </Box>
+
                 <Box sx={{
                     width: '65%',
-                    margin: '16px auto 0 auto'
+                    margin: '24px auto 0 auto'
                 }}>
                     {isEverythingSelected && <Button
                         onClick={handleAddProductDialogOpen}

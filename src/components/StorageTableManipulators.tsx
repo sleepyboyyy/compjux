@@ -13,14 +13,14 @@ import {
 import { Search, Sort } from '@mui/icons-material';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 
-interface ChildProps {
+interface StorageTableManipulatorsProps {
     handleAddItem: () => void;
     onCollectionChange: (collection: string) => void;
     onSortChange: (sortOption: string | null, direction: "asc" | "desc") => void;
     onSearchChange: (query: string) => void;
 }
 
-const TableManipulators: React.FC<ChildProps> = ({ handleAddItem, onCollectionChange, onSortChange, onSearchChange }) => {
+const StorageTableManipulators: React.FC<StorageTableManipulatorsProps> = ({ handleAddItem, onCollectionChange, onSortChange, onSearchChange }) => {
     const [selectedCollection, setSelectedCollection] = useState('gpu');
     const [openDialog, setOpenDialog] = useState(false);
     const [sortOption, setSortOption] = useState<string | null>('none');
@@ -217,4 +217,4 @@ const TableManipulators: React.FC<ChildProps> = ({ handleAddItem, onCollectionCh
     );
 };
 
-export default TableManipulators;
+export default StorageTableManipulators;

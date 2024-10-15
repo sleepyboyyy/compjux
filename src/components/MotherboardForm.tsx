@@ -3,7 +3,6 @@ import React, {FormEvent, useState} from "react";
 import {useFirestore} from "../hooks/useFirestore";
 import {FormControl, TextField} from "@mui/material";
 import Button from "@mui/material/Button";
-import {AddCard} from "@mui/icons-material";
 
 interface MotherboardData {
     brand: "ASUS",
@@ -108,17 +107,12 @@ function MotherboardForm() {
     const [pcCpuPowerConnector , setPCCpuPowerConnector] = useState("");
 
     // hooks
-    const { addDocument } = useFirestore('motherboard');
+    const { addDocument } = useFirestore("motherboard");
 
     // handlers
     // submitHandler
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-
-        const usbPortsArr = usbPorts.split(",").map(item => {
-            const [type, value] = item.split(":");
-            return { [type]: value }
-        });
 
         const  biosFeaturesArr = biosFeatures.split(",").map(item => item.trim());
 
@@ -157,7 +151,7 @@ function MotherboardForm() {
                 sata_ports: stSataPorts,
                 raid_support: stRaidSupport,
             },
-            usb_ports: usbPortsArr,
+            usb_ports: usbPorts,
             network: {
                 ethernet: nEthernet,
                 wifi: nWifi,
@@ -182,7 +176,6 @@ function MotherboardForm() {
         }
 
         await addDocument(schema);
-        console.log(schema);
     }
 
     return (
@@ -263,7 +256,7 @@ function MotherboardForm() {
                         required
                         onChange={(e) => setUsbPorts(e.target.value)}
                         id="outlined-required"
-                        label="Usb Ports (type:value)"
+                        label="Usb Ports"
                         defaultValue=""
                     />
                 </FormControl>

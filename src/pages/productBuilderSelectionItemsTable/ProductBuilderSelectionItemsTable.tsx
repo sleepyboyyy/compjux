@@ -24,14 +24,14 @@ type ComponentProperties = {
 };
 
 const componentProperties: ComponentProperties = {
-    gpu: ['brand', 'model', 'core_clock_speed.boost', 'core_clock_speed.base', 'memory.type', 'memory.size', 'price'],
-    cpu: ['brand', 'model', 'core_clock_speed.boost', 'core_clock_speed.base', 'cores_and_threads.cores', 'cores_and_threads.threads', 'memory_support.type', 'memory_support.speed', 'price'],
-    case: ['brand', 'model', 'form_factor', 'price'],
-    cooling_system: ['brand', 'model', 'fan_size', 'noise_level', 'rgb_lighting', 'rpm_range', 'type', 'price'],
-    motherboard: ['brand', 'model', 'chipset', 'form_factor', 'memory.type', 'memory.slots', 'memory.max_size', 'memory.max_speed', 'price'],
-    psu: ['brand', 'model', 'efficiency_rating', 'form_factor', 'power_output', 'price'],
-    ram: ['brand', 'model', 'form_factor', 'memory_type', 'voltage', 'capacity.total_capacity', 'price'],
-    storage: ['brand', 'model', 'form_factor', 'capacity', 'endurance', 'power_consumption.idle', 'read_speed', 'write_speed', 'type', 'price']
+    gpu: ['brand', 'model', 'core_clock_speed.boost', 'core_clock_speed.base', 'memory.type', 'memory.size', 'price', 'quantity'],
+    cpu: ['brand', 'model', 'core_clock_speed.boost', 'core_clock_speed.base', 'cores_and_threads.cores', 'cores_and_threads.threads', 'memory_support.type', 'memory_support.speed', 'price', 'quantity'],
+    case: ['brand', 'model', 'form_factor', 'price', 'quantity'],
+    cooling_system: ['brand', 'model', 'fan_size', 'noise_level', 'rgb_lighting', 'rpm_range', 'type', 'price', 'quantity'],
+    motherboard: ['brand', 'model', 'chipset', 'form_factor', 'memory.type', 'memory.slots', 'memory.max_size', 'memory.max_speed', 'price', 'quantity'],
+    psu: ['brand', 'model', 'efficiency_rating', 'form_factor', 'power_output', 'price', 'quantity'],
+    ram: ['brand', 'model', 'form_factor', 'memory_type', 'voltage', 'capacity.total_capacity', 'price', 'quantity'],
+    storage: ['brand', 'model', 'form_factor', 'capacity', 'endurance', 'power_consumption.idle', 'read_speed', 'write_speed', 'type', 'price', 'quantity']
     // Add properties for other components...
 };
 
@@ -266,7 +266,7 @@ function ProductBuilderSelectionItemsTable() {
                 {/*  DIALOGS  */}
                 {/*  Add Item Dialog  */}
                 <Dialog open={isAddItemDialogOpen} onClose={handleAddItemDialogClose}>
-                    <DialogTitle sx={{ color: 'var(--secondary-color)' }}>Are you sure you want to add <strong>{selectedItem && selectedItem.brand} {selectedItem && selectedItem.model}</strong> as a GPU?</DialogTitle>
+                    <DialogTitle sx={{ color: 'var(--secondary-color)' }}>Are you sure you want to add <strong>{selectedItem && selectedItem.brand} {selectedItem && selectedItem.model}</strong> as an Item?</DialogTitle>
                     <DialogActions>
                         <Button onClick={handleAddItemDialogClose} sx={{ color: 'var(--secondary-color)', marginRight: "8px" }}>
                             Cancel

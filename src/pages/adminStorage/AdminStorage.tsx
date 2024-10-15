@@ -1,8 +1,8 @@
-import React, {useEffect, useState} from 'react';
+import { useState} from 'react';
 import AdminNavigation from "../../components/AdminNavigation";
 import {useNavigate} from "react-router-dom";
 import {Box} from "@mui/material";
-import TableManipulators from "../../components/TableManipulators";
+import StorageTableManipulators from "../../components/StorageTableManipulators";
 import StorageTable from "../../components/StorageTable";
 import AdminTablePagination
     from "../../components/AdminTablePagination";
@@ -65,7 +65,7 @@ function AdminStorage() {
             <AdminNavigation page="STORAGE">
                 <>
                     <Box sx={{ margin: "32px 0" }}>
-                        <TableManipulators
+                        <StorageTableManipulators
                             onCollectionChange={handleSelectedCollectionChange}
                             handleAddItem={handleAddItem}
                             onSortChange={handleSortChange}
