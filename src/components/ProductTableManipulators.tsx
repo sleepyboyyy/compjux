@@ -73,7 +73,7 @@ function ProductTableManipulators({ onSortChange, handleAddItem, onSearchChange 
                 variant="outlined"
                 placeholder="Search anything..."
                 value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
+                onChange={handleSearchChange}
                 sx={{ minWidth: 300 }}
                 InputProps={{
                     startAdornment: (

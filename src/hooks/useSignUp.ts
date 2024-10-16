@@ -3,7 +3,7 @@ import { doc, setDoc, updateDoc } from 'firebase/firestore'
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
 import {projectAuth, projectFirestore} from "../firebase/firebase";
 import {AdminData} from "../pages/createAdministrator/CreateAdministrator";
-import {ClientData} from "../pages/Signup/Signup";
+import {ClientData} from "../pages/signup/Signup";
 
 export interface registerData {
     type: "Admin" | "Client",

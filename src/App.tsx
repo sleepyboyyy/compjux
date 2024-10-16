@@ -14,10 +14,10 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Rootlayout from "./layouts/Rootlayout/Rootlayout";
 
 // client pages
-import Home from "./pages/Home/Home";
-import Login from "./pages/Login/Login";
-import Signup from "./pages/Signup/Signup";
-import ClientDashboard from "./pages/Client Dashboard/ClientDashboard";
+import Home from "./pages/home/Home";
+import Login from "./pages/login/Login";
+import Signup from "./pages/signup/Signup";
+import ClientDashboard from "./pages/clientDashboard/ClientDashboard";
 
 // admin pages
 import AdministratorLogin from "./pages/administratorLogin/AdministratorLogin";
@@ -39,6 +39,7 @@ import AdminProductBuilder from "./pages/adminProductBuilder/AdminProductBuilder
 import ProductBuilderSelectionItemsTable
     from "./pages/productBuilderSelectionItemsTable/ProductBuilderSelectionItemsTable";
 import {PCComponentsProvider} from "./context/PCComponentsContext";
+import AdminProductsItemDetails from "./pages/adminProductsItemDetails/AdminProductsItemDetails";
 
 function App() {
     const { state } = useAuthContext();
@@ -117,6 +118,15 @@ function App() {
                     element={
                         <ProtectedRoute>
                             <ProductBuilderSelectionItemsTable />
+                        </ProtectedRoute>
+                    }
+                />
+
+                <Route
+                    path="admin-products/product-details/:id"
+                    element={
+                        <ProtectedRoute>
+                            <AdminProductsItemDetails />
                         </ProtectedRoute>
                     }
                 />

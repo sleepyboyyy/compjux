@@ -3,7 +3,7 @@ import {useLocation, useNavigate, useParams} from "react-router-dom";
 import {useCollection} from "../../hooks/useCollection";
 import AdminNavigation from "../../components/AdminNavigation";
 import {
-    Box, Dialog, DialogActions, DialogContent, DialogTitle, Divider, FormControlLabel, Grid, InputAdornment,
+    Box, Dialog, DialogActions, DialogContent, DialogTitle, Divider, FormControlLabel, Grid, IconButton, InputAdornment,
     Paper,
     Radio, RadioGroup,
     Table,
@@ -18,6 +18,7 @@ import AdminTablePagination from "../../components/AdminTablePagination";
 import Button from "@mui/material/Button";
 import {Search, Sort} from "@mui/icons-material";
 import {usePCComponentsContext} from "../../context/PCComponentsContext";
+import ArrowBackRoundedIcon from "@mui/icons-material/ArrowBackRounded";
 
 type ComponentProperties = {
     [key: string]: string[];
@@ -136,7 +137,7 @@ function ProductBuilderSelectionItemsTable() {
 
     return (
         <AdminNavigation page="PRODUCTS">
-            <Box sx={{ width: '80%', margin: '64px auto' }}>
+            <Box sx={{ width: '80%', margin: '64px auto', position: 'relative' }}>
                 <Typography variant="h4" sx={{ textAlign: 'center', marginBottom: '32px' }}>
                     Select {componentType?.toUpperCase()}
                 </Typography>
@@ -171,6 +172,18 @@ function ProductBuilderSelectionItemsTable() {
                         </Button>
                     </Box>
                 )}
+
+                <IconButton
+                    onClick={() => navigate('/admin-products/product-builder')}
+                    sx={{
+                        position: 'absolute',
+                        right: 5,
+                        top: 5,
+                        color: 'var(--primary-color)',
+                    }}
+                >
+                    <ArrowBackRoundedIcon sx={{ fontSize: 35 }} />
+                </IconButton>
 
                 <Box
                     display="flex"

@@ -1,12 +1,15 @@
 import React from 'react';
 import {Box, IconButton, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from "@mui/material";
 import BorderColorIcon from "@mui/icons-material/BorderColor";
+import {useNavigate} from "react-router-dom";
 
 interface ProductsTableProps {
     data: any[];
 }
 
 function ProductsTable({ data }: ProductsTableProps) {
+    const navigate = useNavigate();
+
     return (
         <Box>
             <TableContainer
@@ -67,7 +70,7 @@ function ProductsTable({ data }: ProductsTableProps) {
                                     {singleData.quantity}
                                 </TableCell>
                                 <TableCell align="center" sx={{ width: '120px', borderBottom: '1px solid #D2D2D2' }}>
-                                    <IconButton aria-label="edit" size="small" >
+                                    <IconButton aria-label="edit" size="small" onClick={() => navigate(`product-details/${singleData.id}`)} >
                                         <BorderColorIcon sx={{ color: 'var(--secondary-color)' }} />
                                     </IconButton>
                                 </TableCell>

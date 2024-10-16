@@ -42,13 +42,13 @@ function CreateAdministrator() {
             role: "admin"
         }
 
-        // Create Signup type object
+        // Create signup type object
         const dataObject: registerData = {
             type: "Admin",
             data: adminData
         }
 
-        // Signup user
+        // signup user
         await signUserUp(dataObject);
 
         // Redirect to admin login
