@@ -1,12 +1,28 @@
 import './Rootlayout.css'
-import {Link, NavLink, Outlet, useNavigate} from "react-router-dom";
-import {Container, Nav, Navbar, NavDropdown} from "react-bootstrap";
-import AccountSVG from "../../svg_icons/AccountSVG";
-import CartSVG from "../../svg_icons/CartSVG";
-import SearchSVG from "../../svg_icons/SearchSVG";
+import {Link, Outlet, useNavigate} from "react-router-dom";
+import {useState} from "react";
+import {
+    AppBar,
+    Box,
+    Button, Divider, Drawer,
+    IconButton, List, ListItem, ListItemText,
+    Menu,
+    MenuItem,
+    Toolbar,
+    Typography,
+    useMediaQuery,
+    useTheme
+} from "@mui/material";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import MenuIcon from '@mui/icons-material/Menu';
 
 
 function Rootlayout() {
+    const [accountMenuAnchor, setAccountMenuAnchor] = useState<null | HTMLElement>(null);
+    const [drawerOpen, setDrawerOpen] = useState(false);
+    const theme = useTheme();
+    const isMobile = useMediaQuery(theme.breakpoints.down('md'));
     const navigate = useNavigate();
 
     // Handlers
@@ -15,86 +31,135 @@ function Rootlayout() {
         navigate("/account_settings");
     }
 
+    const handleAccountMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
+        setAccountMenuAnchor(event.currentTarget);
+    };
+
+    const handleAccountMenuClose = () => {
+        setAccountMenuAnchor(null);
+    };
+
+    const handleDrawerToggle = () => {
+        setDrawerOpen(!drawerOpen);
+    };
+
+    const navigationLinks = [
+        { label: 'Daily Special', to: '/daily-special' },
+        { label: 'PC Store', to: '/pc-store' },
+        { label: 'Support', to: '/support' },
+        { label: 'Contact', to: '/contact' },
+    ];
+
     return (
         <>
-            <Navbar expand="lg" className="bg-body-tertiary">
-                <Container>
-                    <Link to="/" className="navbar-brand me-4">Compjux</Link>
-                    <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                    <Navbar.Collapse id="basic-navbar-nav">
-                        <Nav className="ms-auto">
-                            <Link to="/" className="nav-link mx-2" >Daily Special</Link>
+            <AppBar position="static" sx={{ backgroundColor: 'var(--softWhite-color)', boxShadow: 'none', padding: {lg: '0 96px', xs: '0 16px'} }}>
+                <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                    {/* Logo Section */}
+                    <Box>
+                        <Typography
+                            variant="h6"
+                            component={Link}
+                            to="/"
+                            sx={{ textDecoration: 'none', color: 'var(--primary-color)', fontWeight: 'bold' }}
+                        >
+                            Compjux
+                        </Typography>
+                    </Box>
 
-                            {/* DROPDOWN GAMING PCs*/}
-                            <NavDropdown title="Gaming PCs" className="mega-menu mx-2" id="basic-nav-dropdown"
-                                         renderMenuOnMount={true}>
-                                <div className="d-flex justify-content-evenly py-4">
-                                    <div className="dropdown-section">
-                                        <h2 className="dropdown-header">Featured</h2>
-                                        <Link to="/" className="dropdown-item">Best Selling Gaming PCs</Link>
-                                        <Link to="/" className="dropdown-item">AMD Gaming PCs</Link>
-                                        <Link to="/" className="dropdown-item">GeForce Selling Gaming PCs</Link>
-                                    </div>
-                                    <div className="dropdown-section">
-                                        <Link to="/" className="dropdown-item">Creator Series</Link>
-                                        <Link to="/" className="dropdown-item">Signature Series</Link>
-                                        <Link to="/" className="dropdown-item">Powered By Asus PCs</Link>
-                                    </div>
-                                    <div className="dropdown-section">
-                                        <Link to="/" className="dropdown-item">Luxe Series</Link>
-                                        <Link to="/" className="dropdown-item">EVO mini Series</Link>
-                                        <Link to="/" className="dropdown-item">Corsair iCUE Series</Link>
-                                    </div>
-                                </div>
-                            </NavDropdown>
+                    {/* Desktop Navigation Links */}
+                    {!isMobile && (
+                        <Box sx={{ display: 'flex', gap: 3 }}>
+                            {navigationLinks.map((link) => (
+                                <Button
+                                    key={link.to}
+                                    component={Link}
+                                    to={link.to}
+                                    sx={{
+                                        color: 'black',
+                                        position: 'relative',
+                                        '&:hover': {backgroundColor: 'var(--softWhite-color)'},
+                                        '&::after': {
+                                            content: '""',
+                                            position: 'absolute',
+                                            bottom: 0,
+                                            left: '50%',
+                                            width: 0,
+                                            height: '2px',
+                                            backgroundColor: 'var(--primary-color)',
+                                            transition: 'width 0.15s ease, left 0.15s ease',
+                                        },
+                                        '&:hover::after': {
+                                            width: '32px',
+                                            left: 'calc(50% - 16px)',
+                                        },
+                                    }}
+                                >
+                                    {link.label}
+                                </Button>
+                            ))}
+                        </Box>
+                    )}
 
-                            {/* DROPDOWN GAMING Laptops*/}
-                            <NavDropdown title="Gaming Laptops" className="mega-menu mx-2" id="basic-nav-dropdown"
-                                         renderMenuOnMount={true}>
-                                <div className="d-flex justify-content-evenly py-4">
-                                    <div className="dropdown-section">
-                                        <h2 className="dropdown-header">Featured Laptops</h2>
-                                        <Link to="/" className="dropdown-item">Best Selling Gaming Laptops</Link>
-                                        <Link to="/" className="dropdown-item">AMD Gaming Laptops</Link>
-                                        <Link to="/" className="dropdown-item">GeForce Gaming Laptops</Link>
-                                    </div>
-                                    <div className="dropdown-section">
-                                        <h2 className="dropdown-header">Asus Gaming Laptops</h2>
-                                        <Link to="/" className="dropdown-item">Republic of Gamers - Series</Link>
-                                        <Link to="/" className="dropdown-item">TUF Gaming - Series</Link>
-                                    </div>
-                                    <div className="dropdown-section">
-                                        <h2 className="dropdown-header">Acer Gaming Laptops</h2>
-                                        <Link to="/" className="dropdown-item">Predator - Series</Link>
-                                        <Link to="/" className="dropdown-item">Nitro - Series</Link>
-                                    </div>
-                                    <div className="dropdown-section">
-                                        <h2 className="dropdown-header">Lenovo Gaming Laptops</h2>
-                                        <Link to="/" className="dropdown-item">Legion - Series</Link>
-                                        <Link to="/" className="dropdown-item">LOQ - Series</Link>
-                                        <Link to="/" className="dropdown-item">IdeaPad - Series</Link>
-                                    </div>
-                                </div>
-                            </NavDropdown>
-                            <Link to="/" className="nav-link mx-2">Gear Store</Link>
-                            <Link to="/" className="nav-link mx-2">Support</Link>
+                    {/* Desktop Account and Cart Section */}
+                    {!isMobile && (
+                        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+                            {/* Account Dropdown */}
+                            <IconButton onClick={handleAccountMenuOpen} sx={{ color: 'var(--primary-color)' }}>
+                                <AccountCircleIcon sx={{ fontSize: '32px' }} />
+                            </IconButton>
+                            <Menu
+                                anchorEl={accountMenuAnchor}
+                                open={Boolean(accountMenuAnchor)}
+                                onClose={handleAccountMenuClose}
+                                anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+                                transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+                            >
+                                <MenuItem component={Link} to="/account-settings" onClick={handleAccountMenuClose}>
+                                    Account Settings
+                                </MenuItem>
+                                <MenuItem component={Link} to="/my-orders" onClick={handleAccountMenuClose}>
+                                    My Orders
+                                </MenuItem>
+                                <Divider sx={{ width: '75%', margin: '0 auto', backgroundColor: 'var(--softGray-color)' }}/>
+                                <MenuItem component={Link} to="/logout" onClick={handleAccountMenuClose}>
+                                    Log Out
+                                </MenuItem>
+                            </Menu>
 
-                        </Nav>
-                        <Nav className="ms-auto" >
-                            <Link to="login" className="nav-link mx-1">
-                                <AccountSVG />
-                            </Link>
-                            <Link to="/" className="nav-link mx-1">
-                                <CartSVG />
-                            </Link>
-                            <Link to="/" className="nav-link mx-1">
-                                <SearchSVG />
-                            </Link>
+                            {/* Cart Icon */}
+                            <IconButton component={Link} to="/cart" sx={{ color: 'var(--primary-color)' }}>
+                                <ShoppingCartIcon sx={{ fontSize: '32px' }} />
+                            </IconButton>
+                        </Box>
+                    )}
 
-                        </Nav>
-                    </Navbar.Collapse>
-                </Container>
-            </Navbar>
+                    {/* Mobile Menu Button */}
+                    {isMobile && (
+                        <IconButton onClick={handleDrawerToggle} sx={{ color: 'black' }}>
+                            <MenuIcon />
+                        </IconButton>
+                    )}
+                </Toolbar>
+
+                {/* Mobile Drawer */}
+                <Drawer anchor="right" open={drawerOpen} onClose={handleDrawerToggle}>
+                    <Box sx={{ width: 250, padding: 2 }}>
+                        <List>
+                            <ListItem component={Link} to="/account-settings" onClick={handleDrawerToggle} sx={{color: 'var(--secondary-color)'}}>
+                                <AccountCircleIcon sx={{ marginRight: 2, color: 'var(--primary-color)' }} /> Account
+                            </ListItem>
+                            <ListItem component={Link} to="/cart" onClick={handleDrawerToggle} sx={{color: 'var(--secondary-color)'}}>
+                                <ShoppingCartIcon sx={{ marginRight: 2, color: 'var(--primary-color)' }} /> Cart
+                            </ListItem>
+                            {navigationLinks.map((link) => (
+                                <ListItem key={link.to} component={Link} to={link.to} onClick={handleDrawerToggle} sx={{color: 'var(--secondary-color)'}}>
+                                    <ListItemText primary={link.label} />
+                                </ListItem>
+                            ))}
+                        </List>
+                    </Box>
+                </Drawer>
+            </AppBar>
 
             <Outlet/>
         </>
