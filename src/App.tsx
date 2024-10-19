@@ -14,7 +14,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Rootlayout from "./layouts/Rootlayout/Rootlayout";
 
 // client pages
-import Home from "./pages/home/Home";
+import HomeHeroImageComponent from "./components/HomeHeroImageComponent";
 import Login from "./pages/login/Login";
 import Signup from "./pages/signup/Signup";
 import ClientDashboard from "./pages/clientDashboard/ClientDashboard";
@@ -40,6 +40,7 @@ import ProductBuilderSelectionItemsTable
     from "./pages/productBuilderSelectionItemsTable/ProductBuilderSelectionItemsTable";
 import {PCComponentsProvider} from "./context/PCComponentsContext";
 import AdminProductsItemDetails from "./pages/adminProductsItemDetails/AdminProductsItemDetails";
+import Home from "./pages/home/Home";
 
 function App() {
     const { state } = useAuthContext();
@@ -132,7 +133,7 @@ function App() {
                 />
 
                 <Route path="/" element={<Rootlayout/>}>
-                    <Route index element={<Home/>}/>
+                    <Route index element={<Home />}/>
                     <Route path="login" element={ state.user ? <Navigate to="/account-settings" replace /> : <Login/> }/>
                     <Route path="signup" element={ state.user ? <Navigate to="/account-settings" replace /> : <Signup/> }/>
                     <Route

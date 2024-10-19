@@ -4,7 +4,10 @@
   --softWhite-color: #F8F8F8;
   --softGray-color: #E6E6E6;
   --hardGray-color: #58585A;
+  --priceGreen-color: #25A933;
 }
+
+/*#25A933*/
 
 * {
   margin: 0;
