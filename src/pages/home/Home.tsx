@@ -3,6 +3,7 @@ import {Box} from "@mui/material";
 import HomeHeroImageComponent from "../../components/HomeHeroImageComponent";
 import HomeBestSellingSectionComponent from "../../components/HomeBestSellingSectionComponent";
 import HomeFillerSectionComponent from "../../components/HomeFillerSectionComponent";
+import HomeWhatWeOfferSection from "../../components/HomeWhatWeOfferSection";
 
 import fillerImage1 from '../../assets/productImages/6.png'
 import fillerImage2 from '../../assets/productImages/5.png'
@@ -24,8 +25,9 @@ function Home() {
         <Box sx={{width: '100%'}}>
             <HomeHeroImageComponent />
             <HomeBestSellingSectionComponent />
-            <HomeFillerSectionComponent imagePath={fillerImage1} isReversed={true} displayData={fillerSectionDisplayData1} bgColor="var(--primary-color)"/>
+            <HomeFillerSectionComponent imagePath={fillerImage1} isReversed={true} displayData={fillerSectionDisplayData1} bgColor="var(--primary-color)" />
             <HomeFillerSectionComponent imagePath={fillerImage2} isReversed={false} displayData={fillerSectionDisplayData2} bgColor="var(--secondary-color)" />
+            <HomeWhatWeOfferSection />
         </Box>
     );
 }
