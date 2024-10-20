@@ -4,10 +4,12 @@ import HomeHeroImageComponent from "../../components/HomeHeroImageComponent";
 import HomeBestSellingSectionComponent from "../../components/HomeBestSellingSectionComponent";
 import HomeFillerSectionComponent from "../../components/HomeFillerSectionComponent";
 import HomeWhatWeOfferSection from "../../components/HomeWhatWeOfferSection";
+import HomeWhyBuyFromUsSection from "../../components/HomeWhyBuyFromUsSection";
+import HomeFooterSection from "../../components/HomeFooterSection";
+import HomeCopyrightSection from "../../components/HomeCopyrightSection";
 
 import fillerImage1 from '../../assets/productImages/6.png'
 import fillerImage2 from '../../assets/productImages/5.png'
-import HomeWhyBuyFromUsSection from "../../components/HomeWhyBuyFromUsSection";
 
 function Home() {
     const fillerSectionDisplayData1 = {
@@ -15,7 +17,6 @@ function Home() {
         description: "By buying a Compjux PC, you get access to a fast and powerful PC that will last you a long time!",
         buttonValue: "Learn More",
     }
-
     const fillerSectionDisplayData2 = {
         title: "Revolutionize the Game With Compjux and Intel",
         description: "After 5 years of disrupting the processor industry with a series of firsts, Intel processors continue to shock and awe with Compjux systems.",
@@ -30,6 +31,8 @@ function Home() {
             <HomeFillerSectionComponent imagePath={fillerImage2} isReversed={false} displayData={fillerSectionDisplayData2} bgColor="var(--secondary-color)" />
             <HomeWhatWeOfferSection />
             <HomeWhyBuyFromUsSection />
+            <HomeFooterSection />
+            <HomeCopyrightSection />
         </Box>
     );
 }
