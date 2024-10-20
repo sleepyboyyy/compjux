@@ -7,6 +7,7 @@ import HomeWhatWeOfferSection from "../../components/HomeWhatWeOfferSection";
 
 import fillerImage1 from '../../assets/productImages/6.png'
 import fillerImage2 from '../../assets/productImages/5.png'
+import HomeWhyBuyFromUsSection from "../../components/HomeWhyBuyFromUsSection";
 
 function Home() {
     const fillerSectionDisplayData1 = {
@@ -28,6 +29,7 @@ function Home() {
             <HomeFillerSectionComponent imagePath={fillerImage1} isReversed={true} displayData={fillerSectionDisplayData1} bgColor="var(--primary-color)" />
             <HomeFillerSectionComponent imagePath={fillerImage2} isReversed={false} displayData={fillerSectionDisplayData2} bgColor="var(--secondary-color)" />
             <HomeWhatWeOfferSection />
+            <HomeWhyBuyFromUsSection />
         </Box>
     );
 }
