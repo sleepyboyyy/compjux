@@ -13,37 +13,14 @@ function HomeBestSellingSectionComponent() {
         dots: false,
         infinite: false,
         speed: 500,
-        slidesToShow: 4,
+        slidesToShow: 1,
         slidesToScroll: 1,
         centerPadding: '24',
         variableWidth: true,
-        responsive: [
-            {
-                breakpoint: 1440,
-                settings: {
-                    slidesToShow: 3,
-                }
-            },
-
-            {
-                breakpoint: 1024,
-                settings: {
-                    slidesToShow: 2,
-                }
-            },
-
-            {
-                breakpoint: 656,
-                settings: {
-                    slidesToShow: 1,
-                }
-            }
-
-        ]
     }
 
     return (
-        <Box>
+        <Box sx={{mb: '32px'}}>
             <Box sx={{ my: 4 }}>
                 <Typography variant="h2" sx={{ textAlign: 'center', color: 'var(--secondary-color)' }}>
                     Best Selling Gaming PC

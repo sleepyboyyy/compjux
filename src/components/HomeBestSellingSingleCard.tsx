@@ -48,7 +48,7 @@ function HomeBestSellingSingleCard({ productId, productImage }: HomeBestSellingS
     }
 
     return (
-        <Card sx={{ width: 345, m: 2, boxShadow: 3, '&:hover': {boxShadow: 12} }}>
+        <Card sx={{ width: {xs: '300px', sm: '345px'}, m: 2, boxShadow: 3, '&:hover': {boxShadow: 12} }}>
             <CardMedia
                 component="img"
                 height="400"
