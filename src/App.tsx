@@ -41,6 +41,7 @@ import ProductBuilderSelectionItemsTable
 import {PCComponentsProvider} from "./context/PCComponentsContext";
 import AdminProductsItemDetails from "./pages/adminProductsItemDetails/AdminProductsItemDetails";
 import Home from "./pages/home/Home";
+import PcStore from "./pages/pc-store/PcStore";
 
 function App() {
     const { state } = useAuthContext();
@@ -134,6 +135,7 @@ function App() {
 
                 <Route path="/" element={<Rootlayout/>}>
                     <Route index element={<Home />}/>
+                    <Route path="pc-store" element={<PcStore />} />
                     <Route path="login" element={ state.user ? <Navigate to="/account-settings" replace /> : <Login/> }/>
                     <Route path="signup" element={ state.user ? <Navigate to="/account-settings" replace /> : <Signup/> }/>
                     <Route

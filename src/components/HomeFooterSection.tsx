@@ -41,7 +41,7 @@ function HomeFooterSection() {
                 sx={{
                     flexDirection: {xs: 'column', md: 'row'},
                     gap: {xs: '32px', md:'128px'},
-                    alignItems: 'center'
+                    alignItems: {xs: 'center', md: 'baseline'},
                 }}
             >
                 <Box>
