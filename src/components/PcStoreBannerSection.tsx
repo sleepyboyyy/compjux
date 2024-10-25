@@ -16,7 +16,8 @@ function PcStoreBannerSection() {
                 backgroundPosition: 'center',
                 backgroundSize: 'cover',
                 height: '788px',
-                justifyContent: 'space-around',
+                justifyContent: 'flex-start',
+                pl: '128px',
                 alignItems: 'center',
                 zIndex: 1,
                 '&::before': {
@@ -26,16 +27,12 @@ function PcStoreBannerSection() {
                     left: 0,
                     right: 0,
                     bottom: 0,
-                    backgroundColor: 'rgba(0,0,0,0.8)',
+                    backgroundColor: 'rgba(0,0,0,0.4)',
                     zIndex: '-1',
                 }
             }}
         >
-            <Box
-                sx={{
-
-                }}
-            >
+            <Box>
                 <Typography
                     variant="h1"
                     sx={{
@@ -43,6 +40,7 @@ function PcStoreBannerSection() {
                         color: 'var(--softWhite-color)',
                         zIndex: '2',
                         mb: '12px',
+                        textShadow: "4px 4px 11px rgba(0,0,0,0.6);",
                     }}
                 >
                     Gaming PCs
@@ -57,17 +55,6 @@ function PcStoreBannerSection() {
                 >
                     The best custom built PCs you can find!
                 </Typography>
-            </Box>
-
-            <Box
-                sx={{
-                    width: '548px',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                }}
-            >
-                <img src={bannerImage} alt="Gaming PC Banner" style={{ width: '100%' }}/>
             </Box>
         </Box>
     );
