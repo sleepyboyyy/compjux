@@ -16,14 +16,18 @@ import {
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import MenuIcon from '@mui/icons-material/Menu';
+import { useCartContext } from '../../hooks/useCartContext';
+import CartDrawerComponent from "../../components/CartDrawerComponent";
 
 
 function Rootlayout() {
     const [accountMenuAnchor, setAccountMenuAnchor] = useState<null | HTMLElement>(null);
     const [drawerOpen, setDrawerOpen] = useState(false);
+    const [cartDrawerOpen, setCartDrawerOpen] = useState(false);
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('md'));
     const navigate = useNavigate();
+    const { cartItems } = useCartContext();
 
     // Handlers
     // Account Click Handler
@@ -41,6 +45,10 @@ function Rootlayout() {
 
     const handleDrawerToggle = () => {
         setDrawerOpen(!drawerOpen);
+    };
+
+    const handleCartDrawerToggle = (open: boolean) => {
+        setCartDrawerOpen(open);
     };
 
     const navigationLinks = [
@@ -126,9 +134,29 @@ function Rootlayout() {
                                 </MenuItem>
                             </Menu>
 
-                            {/* Cart Icon */}
-                            <IconButton component={Link} to="/cart" sx={{ color: 'var(--primary-color)' }}>
+                            {/* Cart Icon with Drawer */}
+                            <IconButton onClick={() => setCartDrawerOpen(true)} sx={{ color: 'var(--primary-color)', position: 'relative' }}>
                                 <ShoppingCartIcon sx={{ fontSize: '32px' }} />
+                                {cartItems.length > 0 && (
+                                    <Box
+                                        sx={{
+                                            position: 'absolute',
+                                            top: 0,
+                                            right: 0,
+                                            width: '20px',
+                                            height: '20px',
+                                            backgroundColor: 'var(--primary-color)',
+                                            borderRadius: '50%',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'center'
+                                        }}
+                                    >
+                                        <Typography variant="caption" sx={{ color: 'var(--softWhite-color)' }}>
+                                            {cartItems.length}
+                                        </Typography>
+                                    </Box>
+                                )}
                             </IconButton>
                         </Box>
                     )}
@@ -160,6 +188,9 @@ function Rootlayout() {
                     </Box>
                 </Drawer>
             </AppBar>
+
+            {/* Cart Drawer */}
+            <CartDrawerComponent isOpen={cartDrawerOpen} toggleDrawer={handleCartDrawerToggle} />
 
             <Outlet/>
         </>

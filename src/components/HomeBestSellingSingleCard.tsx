@@ -3,6 +3,7 @@ import { Box, Typography, Button, Card, CardContent, CardMedia } from '@mui/mate
 import { doc, getDoc } from 'firebase/firestore';
 import {useDocument} from "../hooks/useDocument";
 import {projectFirestore} from "../firebase/firebase";
+import {useCartContext} from "../hooks/useCartContext";
 
 type HomeBestSellingSingleCardProps = {
     productId: string;
@@ -11,6 +12,7 @@ type HomeBestSellingSingleCardProps = {
 
 function HomeBestSellingSingleCard({ productId, productImage }: HomeBestSellingSingleCardProps) {
     const { document: productDocument } = useDocument('products', productId);
+    const { addToCart } = useCartContext();
     const [componentsData, setComponentsData] = useState<null | any>({
         cpu: null,
         gpu: null,
@@ -47,6 +49,10 @@ function HomeBestSellingSingleCard({ productId, productImage }: HomeBestSellingS
         return <p>Loading...</p>;
     }
 
+    const handleAddToCart = () => {
+        addToCart(productId);
+    }
+
     return (
         <Card sx={{ width: {xs: '300px', sm: '345px'}, m: 2, boxShadow: 3, '&:hover': {boxShadow: 12} }}>
             <CardMedia
@@ -78,6 +84,7 @@ function HomeBestSellingSingleCard({ productId, productImage }: HomeBestSellingS
                 </Typography>
                 <Button
                     variant="contained"
+                    onClick={handleAddToCart}
                     sx={{
                         mt: 1,
                         px: 3,
@@ -92,7 +99,7 @@ function HomeBestSellingSingleCard({ productId, productImage }: HomeBestSellingS
                         }
                     }}
                 >
-                    Buy
+                    Add to Cart
                 </Button>
             </CardContent>
         </Card>

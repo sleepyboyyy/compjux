@@ -42,6 +42,7 @@ import {PCComponentsProvider} from "./context/PCComponentsContext";
 import AdminProductsItemDetails from "./pages/adminProductsItemDetails/AdminProductsItemDetails";
 import Home from "./pages/home/Home";
 import PcStore from "./pages/pc-store/PcStore";
+import {CartProvider} from "./context/CartContext";
 
 function App() {
     const { state } = useAuthContext();
@@ -136,6 +137,7 @@ function App() {
                 <Route path="/" element={<Rootlayout/>}>
                     <Route index element={<Home />}/>
                     <Route path="pc-store" element={<PcStore />} />
+                    <Route path="pc-store/item-b" />
                     <Route path="login" element={ state.user ? <Navigate to="/account-settings" replace /> : <Login/> }/>
                     <Route path="signup" element={ state.user ? <Navigate to="/account-settings" replace /> : <Signup/> }/>
                     <Route
@@ -153,9 +155,11 @@ function App() {
 
     return (
         <PCComponentsProvider>
-            <div className="App">
-                { state.authIsReady ? <RouterProvider router={router} /> : <div>Loading...</div> }
-            </div>
+            <CartProvider>
+                <div className="App">
+                    { state.authIsReady ? <RouterProvider router={router} /> : <div>Loading...</div> }
+                </div>
+            </CartProvider>
         </PCComponentsProvider>
     );
 }
