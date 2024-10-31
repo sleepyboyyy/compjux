@@ -11,7 +11,7 @@ import {
     Typography
 } from "@mui/material";
 
-function HomeFooterSection() {
+function FooterSection() {
     const [isDialogOpen, setDialog] = useState(false);
 
 
@@ -201,4 +201,4 @@ function HomeFooterSection() {
     );
 }
 
-export default HomeFooterSection;
+export default FooterSection;

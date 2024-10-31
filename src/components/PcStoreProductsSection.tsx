@@ -6,7 +6,7 @@ import PcStoreProductsDisplay from "./PcStoreProductsDisplay";
 
 function PcStoreProductsSection() {
     return (
-        <Box>
+        <Box sx={{mb: '32px'}}>
             <Box sx={{ margin: '64px 0' }}>
                 <Typography variant="h2" sx={{ textAlign: 'center' }}>Gaming PCs Store</Typography>
             </Box>

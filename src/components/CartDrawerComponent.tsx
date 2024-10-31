@@ -3,6 +3,8 @@ import {Box, Button, Drawer, IconButton, Typography} from "@mui/material";
 import CloseIcon from '@mui/icons-material/Close';
 import {useCartContext} from "../hooks/useCartContext";
 import useMultipleDocuments from "../hooks/useMultipleDocuments";
+import pcImage from '../assets/productImages/5.png'
+import {useNavigate} from "react-router-dom";
 
 interface CartDrawerComponentProps {
     isOpen: boolean,
@@ -12,6 +14,13 @@ interface CartDrawerComponentProps {
 function CartDrawerComponent({ isOpen, toggleDrawer }: CartDrawerComponentProps) {
     const { cartItems, removeFromCart, clearCart } = useCartContext();
     const { documents: cartDetails, loading, error } = useMultipleDocuments('products', cartItems);
+    const navigate = useNavigate();
+
+    // handler view cart
+    const handleViewCart = () => {
+        toggleDrawer(false);
+        navigate('/cart');
+    }
 
     return (
         <Drawer anchor="right" open={isOpen} onClose={() => toggleDrawer(false)}>
@@ -31,7 +40,7 @@ function CartDrawerComponent({ isOpen, toggleDrawer }: CartDrawerComponentProps)
                     {!loading && !error && cartDetails.length === 0 && <Typography variant="body1">Your cart is empty</Typography>}
                     {!loading && !error && cartDetails.length > 0 && cartDetails.map((document) => (
                         <Box key={document.id} sx={{ display: 'flex', alignItems: 'center', marginBottom: 2 }}>
-                            <img src={document.image} alt={document.product_name} width={50} height={50} style={{ marginRight: 8 }} />
+                            <img src={pcImage} alt={document.product_name} width={50} height={50} style={{ marginRight: 8 }} />
                             <Box sx={{ flexGrow: 1 }}>
                                 <Typography variant="body1">
                                     {document.product_name} - ${document.total_price}
@@ -52,18 +61,31 @@ function CartDrawerComponent({ isOpen, toggleDrawer }: CartDrawerComponentProps)
                         </Typography>
                         <Button
                             variant="contained"
-                            color="primary"
                             component="a"
-                            href="/cart"
-                            sx={{ width: '100%', marginTop: 2 }}
+                            onClick={handleViewCart}
+                            sx={{
+                                width: '100%',
+                                marginTop: 2 ,
+                                backgroundColor: 'var(--primary-color)',
+                                '&:hover': {backgroundColor: 'var(--secondary-color)'}
+                            }}
                         >
                             View Cart
                         </Button>
                         <Button
                             variant="outlined"
-                            color="secondary"
                             onClick={clearCart}
-                            sx={{ width: '100%', marginTop: 1 }}
+                            sx={{
+                                width: '100%',
+                                marginTop: 1,
+                                border: '1px solid var(--secondary-color)',
+                                color: 'var(--secondary-color)',
+                                '&:hover': {
+                                    color: 'var(--primary-color)',
+                                    border: '1px solid var(--primary-color)',
+                                    backgroundColor: '#F7EFEF',
+                                }
+                            }}
                         >
                             Clear Cart
                         </Button>

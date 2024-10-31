@@ -143,10 +143,11 @@ function Rootlayout() {
                                             position: 'absolute',
                                             top: 0,
                                             right: 0,
-                                            width: '20px',
-                                            height: '20px',
+                                            width: '24px',
+                                            height: '24px',
                                             backgroundColor: 'var(--primary-color)',
                                             borderRadius: '50%',
+                                            border: '2px solid var(--softWhite-color)',
                                             display: 'flex',
                                             alignItems: 'center',
                                             justifyContent: 'center'

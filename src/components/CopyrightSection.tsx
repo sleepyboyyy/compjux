@@ -5,7 +5,7 @@ import FacebookIcon from '@mui/icons-material/Facebook';
 import YouTubeIcon from '@mui/icons-material/YouTube';
 import XIcon from '@mui/icons-material/X';
 
-function HomeCopyrightSection() {
+function CopyrightSection() {
     return (
         <Box
             display="flex"
@@ -69,4 +69,4 @@ function HomeCopyrightSection() {
     );
 }
 
-export default HomeCopyrightSection;
+export default CopyrightSection;

@@ -43,6 +43,8 @@ import AdminProductsItemDetails from "./pages/adminProductsItemDetails/AdminProd
 import Home from "./pages/home/Home";
 import PcStore from "./pages/pc-store/PcStore";
 import {CartProvider} from "./context/CartContext";
+import CartPage from "./pages/cart/CartPage";
+import CheckoutPage from "./pages/checkout/CheckoutPage";
 
 function App() {
     const { state } = useAuthContext();
@@ -137,7 +139,8 @@ function App() {
                 <Route path="/" element={<Rootlayout/>}>
                     <Route index element={<Home />}/>
                     <Route path="pc-store" element={<PcStore />} />
-                    <Route path="pc-store/item-b" />
+                    <Route path="cart" element={<CartPage />} />
+                    <Route path="checkout" element={<CheckoutPage />} />
                     <Route path="login" element={ state.user ? <Navigate to="/account-settings" replace /> : <Login/> }/>
                     <Route path="signup" element={ state.user ? <Navigate to="/account-settings" replace /> : <Signup/> }/>
                     <Route

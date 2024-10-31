@@ -5,8 +5,8 @@ import HomeBestSellingSectionComponent from "../../components/HomeBestSellingSec
 import HomeFillerSectionComponent from "../../components/HomeFillerSectionComponent";
 import HomeWhatWeOfferSection from "../../components/HomeWhatWeOfferSection";
 import HomeWhyBuyFromUsSection from "../../components/HomeWhyBuyFromUsSection";
-import HomeFooterSection from "../../components/HomeFooterSection";
-import HomeCopyrightSection from "../../components/HomeCopyrightSection";
+import FooterSection from "../../components/FooterSection";
+import CopyrightSection from "../../components/CopyrightSection";
 
 import fillerImage1 from '../../assets/productImages/6.png'
 import fillerImage2 from '../../assets/productImages/5.png'
@@ -31,8 +31,8 @@ function Home() {
             <HomeFillerSectionComponent imagePath={fillerImage2} isReversed={false} displayData={fillerSectionDisplayData2} bgColor="var(--secondary-color)" />
             <HomeWhatWeOfferSection />
             <HomeWhyBuyFromUsSection />
-            <HomeFooterSection />
-            <HomeCopyrightSection />
+            <FooterSection />
+            <CopyrightSection />
         </Box>
     );
 }
