@@ -20,6 +20,7 @@ import {useFirestore} from "../../hooks/useFirestore";
 import {useNavigate} from "react-router-dom";
 import {useCartContext} from "../../hooks/useCartContext";
 import useMultipleDocuments from "../../hooks/useMultipleDocuments";
+import {useAuthContext} from "../../hooks/useAuthContext";
 
 const StyledTextField = styled(TextField)({
     '& .MuiInputBase-root': {
@@ -88,6 +89,7 @@ function CheckoutPage() {
     const { addDocument } = useFirestore('orders');
     const {cartItems, clearCart} = useCartContext();
     const {documents: cartDetails} = useMultipleDocuments('products', cartItems);
+    const { state } = useAuthContext();
     const navigate = useNavigate();
 
     // handlers
@@ -117,6 +119,8 @@ function CheckoutPage() {
                 order_status: 'processing order',
                 items_ordered: itemsOrdered,
                 items_total_price: itemsTotalPrice,
+                uid: state.user?.uid,
+                user_username: state.user?.displayName
             };
 
             await addDocument(orderDetails);
@@ -130,7 +134,7 @@ function CheckoutPage() {
             // Navigate to the homepage after a short delay (to allow the user to see the popup)
             setTimeout(() => {
                 navigate('/');
-            }, 3000); // Adjust the delay as needed
+            }, 2000); // Adjust the delay as needed
         } else {
             alert('Please fill out all required fields.');
         }

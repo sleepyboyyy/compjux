@@ -45,6 +45,7 @@ import PcStore from "./pages/pc-store/PcStore";
 import {CartProvider} from "./context/CartContext";
 import CartPage from "./pages/cart/CartPage";
 import CheckoutPage from "./pages/checkout/CheckoutPage";
+import AdminOrders from "./pages/admin-orders/AdminOrders";
 
 function App() {
     const { state } = useAuthContext();
@@ -132,6 +133,15 @@ function App() {
                     element={
                         <ProtectedRoute>
                             <AdminProductsItemDetails />
+                        </ProtectedRoute>
+                    }
+                />
+
+                <Route
+                    path="admin-orders"
+                    element={
+                        <ProtectedRoute>
+                            <AdminOrders />
                         </ProtectedRoute>
                     }
                 />

@@ -24,7 +24,7 @@ import { NavLink } from "react-router-dom";
 //TODO: finish vertical navigation and add Outlet logic
 interface AdminNavigationProps {
     children: JSX.Element;
-    page: "DASHBOARD" | "STORAGE" | "PRODUCTS";
+    page: "DASHBOARD" | "STORAGE" | "PRODUCTS" | "ORDERS";
 }
 
 interface headerState {
@@ -45,7 +45,11 @@ interface ProductsAction {
     type: 'PRODUCTS';
 }
 
-type headerAction = dashboardAction | storageAction | ProductsAction;
+interface OrdersAction {
+    type: 'ORDERS';
+}
+
+type headerAction = dashboardAction | storageAction | ProductsAction | OrdersAction;
 
 const headerReducer = (textHeader: headerState, action: headerAction) => {
     switch(action.type) {
@@ -55,6 +59,8 @@ const headerReducer = (textHeader: headerState, action: headerAction) => {
             return { currentPage: "storage", headerContent: "Storage", subContent: "" }
         case "PRODUCTS":
             return { currentPage: "products", headerContent: "Products", subContent: "" }
+        case "ORDERS":
+            return { currentPage: "orders", headerContent: "Orders", subContent: "Manage user orders" }
         default:
             return textHeader;
     }
@@ -98,7 +104,7 @@ function AdminNavigation(props: AdminNavigationProps) {
                             </li>
 
                             <li>
-                                <NavLink to="admin-orders">
+                                <NavLink to="/admin-orders">
                                     <div className="menu_link_image_container">
                                         <ShoppingBasketOutlinedIcon sx={{fontsize: 18}}/>
                                     </div>
