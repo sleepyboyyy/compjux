@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import AdminNavigation from "../../components/AdminNavigation";
-import {Box, TablePagination} from "@mui/material";
+import {Box} from "@mui/material";
 import {useCollection} from "../../hooks/useCollection";
 import OrdersTable from "../../components/OrdersTable";
 import AdminTablePagination from "../../components/AdminTablePagination";

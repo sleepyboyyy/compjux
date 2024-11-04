@@ -17,7 +17,7 @@ import Rootlayout from "./layouts/Rootlayout/Rootlayout";
 import HomeHeroImageComponent from "./components/HomeHeroImageComponent";
 import Login from "./pages/login/Login";
 import Signup from "./pages/signup/Signup";
-import ClientDashboard from "./pages/clientDashboard/ClientDashboard";
+import Settings from "./pages/account-settings/Settings";
 
 // admin pages
 import AdministratorLogin from "./pages/administratorLogin/AdministratorLogin";
@@ -47,6 +47,8 @@ import CartPage from "./pages/cart/CartPage";
 import CheckoutPage from "./pages/checkout/CheckoutPage";
 import AdminOrders from "./pages/admin-orders/AdminOrders";
 import OrdersDetailsPage from "./pages/admin-orders-order-details/OrdersDetailsPage";
+import AccountSettings from "./pages/account-settings/AccountSettings";
+import AccountOrders from "./pages/account-settings/AccountOrders";
 
 function App() {
     const { state } = useAuthContext();
@@ -161,16 +163,20 @@ function App() {
                     <Route path="pc-store" element={<PcStore />} />
                     <Route path="cart" element={<CartPage />} />
                     <Route path="checkout" element={<CheckoutPage />} />
-                    <Route path="login" element={ state.user ? <Navigate to="/account-settings" replace /> : <Login/> }/>
-                    <Route path="signup" element={ state.user ? <Navigate to="/account-settings" replace /> : <Signup/> }/>
+                    <Route path="login" element={ state.user ? <Navigate to="/settings" replace /> : <Login/> }/>
+                    <Route path="signup" element={ state.user ? <Navigate to="/settings" replace /> : <Signup/> }/>
                     <Route
-                        path="account-settings"
+                        path="settings"
                         element={
                         <ValidateClient>
-                            <ClientDashboard />
+                            <Settings />
                         </ValidateClient>
                         }
-                    />
+                    >
+                        <Route index element={<Navigate to="/settings/account-settings" replace />} />
+                        <Route path="account-settings" element={<AccountSettings />} />
+                        <Route path="account-orders" element={<AccountOrders />} />
+                    </Route>
                 </Route>
             </>
         )

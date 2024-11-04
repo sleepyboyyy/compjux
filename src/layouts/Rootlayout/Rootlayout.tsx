@@ -32,7 +32,7 @@ function Rootlayout() {
     // Handlers
     // Account Click Handler
     const handleAccountClick = () => {
-        navigate("/account_settings");
+        navigate("/settings");
     }
 
     const handleAccountMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
@@ -122,10 +122,10 @@ function Rootlayout() {
                                 anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
                                 transformOrigin={{ vertical: 'top', horizontal: 'right' }}
                             >
-                                <MenuItem component={Link} to="/account-settings" onClick={handleAccountMenuClose}>
+                                <MenuItem component={Link} to="/settings" onClick={handleAccountMenuClose}>
                                     Account Settings
                                 </MenuItem>
-                                <MenuItem component={Link} to="/my-orders" onClick={handleAccountMenuClose}>
+                                <MenuItem component={Link} to="/settings/account-orders" onClick={handleAccountMenuClose}>
                                     My Orders
                                 </MenuItem>
                                 <Divider sx={{ width: '75%', margin: '0 auto', backgroundColor: 'var(--softGray-color)' }}/>
@@ -174,7 +174,7 @@ function Rootlayout() {
                 <Drawer anchor="right" open={drawerOpen} onClose={handleDrawerToggle}>
                     <Box sx={{ width: 250, padding: 2 }}>
                         <List>
-                            <ListItem component={Link} to="/account-settings" onClick={handleDrawerToggle} sx={{color: 'var(--secondary-color)'}}>
+                            <ListItem component={Link} to="/settings" onClick={handleDrawerToggle} sx={{color: 'var(--secondary-color)'}}>
                                 <AccountCircleIcon sx={{ marginRight: 2, color: 'var(--primary-color)' }} /> Account
                             </ListItem>
                             <ListItem component={Link} to="/cart" onClick={handleDrawerToggle} sx={{color: 'var(--secondary-color)'}}>
