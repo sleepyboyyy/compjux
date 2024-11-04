@@ -76,7 +76,7 @@ function OrdersTable({ data }: OrdersTableProps) {
                                     ${singleData.items_total_price}
                                 </TableCell>
                                 <TableCell align="center" sx={{ width: '140px', borderBottom: '1px solid #D2D2D2' }}>
-                                    <IconButton aria-label="edit" size="small" onClick={() => navigate(``)} >
+                                    <IconButton aria-label="edit" size="small" onClick={() => navigate(`order-details/${singleData.id}`)} >
                                         <BorderColorIcon sx={{ color: 'var(--secondary-color)' }} />
                                     </IconButton>
                                 </TableCell>

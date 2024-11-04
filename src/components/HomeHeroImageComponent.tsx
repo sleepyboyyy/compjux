@@ -13,9 +13,11 @@ import slide_image2 from '../assets/banner-images/slide_image2.jpg'
 import slide_image3 from '../assets/banner-images/slide_image3.jpg'
 import slide_image4 from '../assets/banner-images/slide_image4.jpg'
 import {useRef} from "react";
+import {useNavigate} from "react-router-dom";
 
 function HomeHeroImageComponent() {
     const arrowRef = useRef<null | any>(null);
+    const navigate = useNavigate();
 
     const settings = {
         dots: true,
@@ -84,7 +86,7 @@ function HomeHeroImageComponent() {
                             <Typography variant="body1" sx={{ marginBottom: '32px', color: 'var(--softGray-color)'}}>
                                 {slide.description}
                             </Typography>
-                            <Button variant="contained" sx={{ backgroundColor: 'var(--primary-color)', '&:hover': {backgroundColor: 'var(--softGray-color)', color: 'var(--primary-color)'} }}>
+                            <Button onClick={() => navigate('pc-store')} variant="contained" sx={{ backgroundColor: 'var(--primary-color)', '&:hover': {backgroundColor: 'var(--softGray-color)', color: 'var(--primary-color)'} }}>
                                 Shop Now
                             </Button>
                         </Box>

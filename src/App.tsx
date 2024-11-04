@@ -46,6 +46,7 @@ import {CartProvider} from "./context/CartContext";
 import CartPage from "./pages/cart/CartPage";
 import CheckoutPage from "./pages/checkout/CheckoutPage";
 import AdminOrders from "./pages/admin-orders/AdminOrders";
+import OrdersDetailsPage from "./pages/admin-orders-order-details/OrdersDetailsPage";
 
 function App() {
     const { state } = useAuthContext();
@@ -142,6 +143,15 @@ function App() {
                     element={
                         <ProtectedRoute>
                             <AdminOrders />
+                        </ProtectedRoute>
+                    }
+                />
+
+                <Route
+                    path="admin-orders/order-details/:id"
+                    element={
+                        <ProtectedRoute>
+                            <OrdersDetailsPage />
                         </ProtectedRoute>
                     }
                 />
