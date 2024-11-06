@@ -1,0 +1,18 @@
+.navbar .mega-menu {
+    position: static;
+}
+
+.navbar .mega-menu .dropdown-menu {
+    width: 100vw; /* Full width of the viewport */
+}
+
+.nav-item.dropdown:hover .dropdown-menu {
+    position: absolute;
+    top: 82.5%;
+    display: block;
+}
+
+.nav-item.dropdown-menu:focus .dropdown-menu {
+    position: absolute;
+    top: 82.5%;
+}

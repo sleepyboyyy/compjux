@@ -1,0 +1,16 @@
+.slick-dots {
+    position: absolute !important;
+    bottom: 3% !important;
+}
+
+.slick-dots li {
+    margin: 0 12px !important;
+}
+
+.slick-dots li button:before {
+    content: '' !important;
+    width: 32px !important;
+    height: 3px !important;
+    background-color: var(--softWhite-color);
+    box-shadow: 1px 2px 5px 0px rgba(26,26,26,1);
+}
