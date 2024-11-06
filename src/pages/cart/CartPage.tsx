@@ -5,11 +5,11 @@ import productImage from '../../assets/productImages/5.png'
 import useMultipleDocuments from "../../hooks/useMultipleDocuments";
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import {useNavigate} from "react-router-dom";
-import FooterSection from "../../components/FooterSection";
-import CopyrightSection from "../../components/CopyrightSection";
+import FooterSection from "../../components/home-components/FooterSection";
+import CopyrightSection from "../../components/home-components/CopyrightSection";
 
 function CartPage() {
-    const { cartItems } = useCartContext();
+    const { cartItems, removeFromCart } = useCartContext();
     const { documents: cartDetails, loading, error } = useMultipleDocuments("products", cartItems);
     const navigate = useNavigate();
 
@@ -47,7 +47,7 @@ function CartPage() {
                             right: '1%'
                         }}
                     >
-                        <CloseRoundedIcon sx={{ fontSize: '32px' }}/>
+                        <CloseRoundedIcon onClick={() => removeFromCart(document.id)} sx={{ fontSize: '32px' }}/>
                     </IconButton>
                 </Box>
             ))}
@@ -80,9 +80,6 @@ function CartPage() {
                     Proceed to Checkout
                 </Button>
             </Box>}
-
-            <FooterSection />
-            <CopyrightSection />
         </Box>
     );
 }

@@ -5,7 +5,8 @@ import './Signup.css'
 import { useContext, useEffect, useState } from "react";
 import { registerData, useSignUp } from "../../hooks/useSignUp";
 import { AuthContext } from "../../context/AuthContext";
-import { useNavigate } from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
+import {Box, Button, Typography} from "@mui/material";
 
 // Client data interface
 export interface ClientData {
@@ -85,6 +86,26 @@ function Signup() {
                 </div>
                 <button className="btn btn-dark w-100">Submit</button>
             </form>
+            <Box sx={{mt: 2}}>
+                <Typography variant="body2" color="textSecondary">Already have an account?
+                    <Button
+                        component={Link} to='/login'
+                        variant="text"
+                        sx={{
+                            ml: 1,
+                            textDecoration: 'underline',
+                            color: 'var(--primary-color)',
+                            '&:hover': {
+                                backgroundColor: '#F7EFEF',
+                                textDecoration: 'underline',
+                                color: '#7C1615',
+                            }
+                        }}
+                    >
+                        Sign in
+                    </Button>
+                </Typography>
+            </Box>
         </div>
     );
 }

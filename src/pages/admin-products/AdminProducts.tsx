@@ -1,18 +1,23 @@
 import React, {useState} from 'react';
 import AdminNavigation from "../../components/admin-navigation-components/AdminNavigation";
+import Button from "@mui/material/Button";
+import {useNavigate} from "react-router-dom";
 import {Box} from "@mui/material";
+import ProductTableManipulators from "../../components/admin-product-components/ProductTableManipulators";
+import ProductsTable from "../../components/admin-product-components/ProductsTable";
 import {useCollection} from "../../hooks/useCollection";
-import OrdersTable from "../../components/admin-order-components/OrdersTable";
 import AdminTablePagination from "../../components/misc-components/AdminTablePagination";
-import OrdersTableManipulators from "../../components/admin-order-components/OrdersTableManipulators";
 
-function AdminOrders() {
+function AdminProducts() {
+    // State
     const [sortType, setSortType] = useState<string | null>(null);
-    const [sortDirection, setSortDirection] = useState<"asc" | "desc">("asc");
-    const [searchQuery, setSearchQuery] = useState("");
+    const [sortDirection, setSortDirection] = useState<"asc" | "desc">('asc');
     const [page, setPage] = useState(1);
-    const { documents } = useCollection('orders', sortType, sortDirection);
+    const [searchQuery, setSearchQuery] = useState("");
     const rowsPerPage = 7;
+
+    const navigate = useNavigate();
+    const { documents } = useCollection('products', sortType, sortDirection);
 
     if (!documents) {
         return <p>Loading...</p>;
@@ -32,25 +37,31 @@ function AdminOrders() {
         setPage(value);
     }
 
+    // handle search change
+    const handleSearchChange = (query: string) => {
+        setSearchQuery(query);
+    }
+
+    // handle add item
+    const handleAddItem = () => {
+        navigate("product-builder");
+    }
+
     // Function to handle sort type change
     const handleSortChange = (sortOption: string | null, direction: "asc" | "desc") => {
         setSortType(sortOption); // Update sort type
         setSortDirection(direction);
     };
 
-    // handle search change
-    const handleSearchChange = (query: string) => {
-        setSearchQuery(query);
-    }
-
     return (
-        <AdminNavigation page="ORDERS">
+        <AdminNavigation page="PRODUCTS">
             <Box sx={{ margin: '32px 0' }}>
-                <OrdersTableManipulators
+                <ProductTableManipulators
+                    handleAddItem={handleAddItem}
                     onSortChange={handleSortChange}
                     onSearchChange={handleSearchChange}
                 />
-                <OrdersTable
+                <ProductsTable
                     data={paginatedData}
                 />
                 <AdminTablePagination
@@ -81,4 +92,4 @@ const checkNestedProperties = (obj: any, searchTerm: string): boolean => {
     return false;
 };
 
-export default AdminOrders;
+export default AdminProducts;

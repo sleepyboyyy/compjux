@@ -14,39 +14,39 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Rootlayout from "./layouts/Rootlayout/Rootlayout";
 
 // client pages
-import HomeHeroImageComponent from "./components/HomeHeroImageComponent";
+import HomeHeroImageComponent from "./components/home-components/HomeHeroImageComponent";
 import Login from "./pages/login/Login";
 import Signup from "./pages/signup/Signup";
 import Settings from "./pages/account-settings/Settings";
 
 // admin pages
-import AdministratorLogin from "./pages/administratorLogin/AdministratorLogin";
-import CreateAdministrator from "./pages/createAdministrator/CreateAdministrator";
-import AdminDashboard from "./pages/adminDashboard/AdminDashboard";
+import AdministratorLogin from "./pages/admin-login/AdministratorLogin";
+import CreateAdministrator from "./pages/create-administrator/CreateAdministrator";
+import AdminDashboard from "./pages/admin-dashboard/AdminDashboard";
 
 // components
-import AdminStorage from "./pages/adminStorage/AdminStorage";
+import AdminStorage from "./pages/admin-storage/AdminStorage";
 
 
 import {useAuthContext} from "./hooks/useAuthContext";
-import ProtectedRoute from "./components/ProtectedRoute";
-import AdminLoginProtection from "./components/AdminLoginProtection";
-import ValidateClient from "./components/ValidateClient";
-import AdminStorageItemDetails from "./pages/adminStorageItemDetails/AdminStorageItemDetails";
-import AdminStorageAddItem from "./pages/adminStorageAddItem/AdminStorageAddItem";
-import AdminProducts from "./pages/adminProducts/AdminProducts";
-import AdminProductBuilder from "./pages/adminProductBuilder/AdminProductBuilder";
+import ProtectedRoute from "./components/auth-components/ProtectedRoute";
+import AdminLoginProtection from "./components/auth-components/AdminLoginProtection";
+import ValidateClient from "./components/auth-components/ValidateClient";
+import AdminStorageItemDetails from "./pages/admin-storage/admin-storage-item-details/AdminStorageItemDetails";
+import AdminStorageAddItem from "./pages/admin-storage/admin-storage-add-item/AdminStorageAddItem";
+import AdminProducts from "./pages/admin-products/AdminProducts";
+import AdminProductBuilder from "./pages/admin-products/admin-product-builder/AdminProductBuilder";
 import ProductBuilderSelectionItemsTable
-    from "./pages/productBuilderSelectionItemsTable/ProductBuilderSelectionItemsTable";
+    from "./pages/admin-products/admin-product-builder-selection-items-table/ProductBuilderSelectionItemsTable";
 import {PCComponentsProvider} from "./context/PCComponentsContext";
-import AdminProductsItemDetails from "./pages/adminProductsItemDetails/AdminProductsItemDetails";
+import AdminProductsItemDetails from "./pages/admin-products/admin-products-item-details/AdminProductsItemDetails";
 import Home from "./pages/home/Home";
 import PcStore from "./pages/pc-store/PcStore";
 import {CartProvider} from "./context/CartContext";
 import CartPage from "./pages/cart/CartPage";
 import CheckoutPage from "./pages/checkout/CheckoutPage";
 import AdminOrders from "./pages/admin-orders/AdminOrders";
-import OrdersDetailsPage from "./pages/admin-orders-order-details/OrdersDetailsPage";
+import OrdersDetailsPage from "./pages/admin-orders/admin-orders-order-details/OrdersDetailsPage";
 import AccountSettings from "./pages/account-settings/AccountSettings";
 import AccountOrders from "./pages/account-settings/AccountOrders";
 

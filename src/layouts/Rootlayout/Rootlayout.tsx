@@ -1,5 +1,5 @@
 import './Rootlayout.css'
-import {Link, Outlet, useNavigate} from "react-router-dom";
+import {Link, NavLink, Outlet, useNavigate} from "react-router-dom";
 import {useState} from "react";
 import {
     AppBar,
@@ -17,7 +17,9 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import MenuIcon from '@mui/icons-material/Menu';
 import { useCartContext } from '../../hooks/useCartContext';
-import CartDrawerComponent from "../../components/CartDrawerComponent";
+import CartDrawerComponent from "../../components/misc-components/CartDrawerComponent";
+import {useSignOut} from "../../hooks/useSignOut";
+import {useAuthContext} from "../../hooks/useAuthContext";
 
 
 function Rootlayout() {
@@ -28,20 +30,29 @@ function Rootlayout() {
     const isMobile = useMediaQuery(theme.breakpoints.down('md'));
     const navigate = useNavigate();
     const { cartItems } = useCartContext();
+    const { signUserOut } = useSignOut();
+    const { state } = useAuthContext();
 
     // Handlers
     // Account Click Handler
-    const handleAccountClick = () => {
-        navigate("/settings");
-    }
 
     const handleAccountMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
-        setAccountMenuAnchor(event.currentTarget);
+        if (state.user) {
+            setAccountMenuAnchor(event.currentTarget);
+        } else {
+            navigate('/login');
+        }
     };
 
     const handleAccountMenuClose = () => {
         setAccountMenuAnchor(null);
     };
+
+    const handleUserSignOut = async () => {
+        await signUserOut();
+        setAccountMenuAnchor(null);
+        navigate('/');
+    }
 
     const handleDrawerToggle = () => {
         setDrawerOpen(!drawerOpen);
@@ -52,7 +63,7 @@ function Rootlayout() {
     };
 
     const navigationLinks = [
-        { label: 'Daily Special', to: '/daily-special' },
+        { label: 'Home', to: '/' },
         { label: 'PC Store', to: '/pc-store' },
         { label: 'Support', to: '/support' },
         { label: 'Contact', to: '/contact' },
@@ -80,12 +91,23 @@ function Rootlayout() {
                             {navigationLinks.map((link) => (
                                 <Button
                                     key={link.to}
-                                    component={Link}
+                                    component={NavLink}
                                     to={link.to}
                                     sx={{
                                         color: 'black',
                                         position: 'relative',
-                                        '&:hover': {backgroundColor: 'var(--softWhite-color)'},
+                                        textTransform: 'none', // Ensures no uppercase text
+                                        '&:hover': { backgroundColor: 'var(--softWhite-color)' },
+                                        '&.active::after': {
+                                            content: '""',
+                                            position: 'absolute',
+                                            bottom: 0,
+                                            left: 'calc(50% - 12px)',
+                                            width: '24px',
+                                            height: '2px',
+                                            backgroundColor: 'var(--primary-color)',
+                                            transition: 'width 0.15s ease, left 0.15s ease',
+                                        },
                                         '&::after': {
                                             content: '""',
                                             position: 'absolute',
@@ -97,8 +119,8 @@ function Rootlayout() {
                                             transition: 'width 0.15s ease, left 0.15s ease',
                                         },
                                         '&:hover::after': {
-                                            width: '32px',
-                                            left: 'calc(50% - 16px)',
+                                            width: '16px',
+                                            left: 'calc(50% - 8px)',
                                         },
                                     }}
                                 >
@@ -112,9 +134,28 @@ function Rootlayout() {
                     {!isMobile && (
                         <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
                             {/* Account Dropdown */}
-                            <IconButton onClick={handleAccountMenuOpen} sx={{ color: 'var(--primary-color)' }}>
-                                <AccountCircleIcon sx={{ fontSize: '32px' }} />
-                            </IconButton>
+                            {/* If not logged in show icon */}
+                            {!state.user && <IconButton onClick={handleAccountMenuOpen} sx={{color: 'var(--primary-color)'}}>
+                                <AccountCircleIcon sx={{fontSize: '32px'}}/>
+                            </IconButton>}
+
+                            {/* If logged in show username */}
+                            {state.user && <Button
+                                onClick={handleAccountMenuOpen}
+                                variant="text"
+                                sx={{
+                                    ml: 1,
+                                    textTransform: 'none',
+                                    color: 'var(--primary-color)',
+                                    '&:hover': {
+                                        backgroundColor: '#F7EFEF',
+                                        color: '#7C1615',
+                                    }
+                                }}
+                            >
+                                {state.user?.displayName}
+                            </Button>}
+
                             <Menu
                                 anchorEl={accountMenuAnchor}
                                 open={Boolean(accountMenuAnchor)}
@@ -129,7 +170,7 @@ function Rootlayout() {
                                     My Orders
                                 </MenuItem>
                                 <Divider sx={{ width: '75%', margin: '0 auto', backgroundColor: 'var(--softGray-color)' }}/>
-                                <MenuItem component={Link} to="/logout" onClick={handleAccountMenuClose}>
+                                <MenuItem onClick={handleUserSignOut}>
                                     Log Out
                                 </MenuItem>
                             </Menu>

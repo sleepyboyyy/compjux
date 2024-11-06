@@ -1,10 +1,12 @@
 // hooks
-import {useContext, useState} from "react";
+import React, {useContext, useState} from "react";
 import { AuthContext } from "../../context/AuthContext";
 import {useSignOut} from "../../hooks/useSignOut";
 import {useDocument} from "../../hooks/useDocument";
 import {Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, Divider, Typography} from '@mui/material';
-import {NavLink, Outlet} from "react-router-dom";
+import {NavLink, Outlet, useNavigate} from "react-router-dom";
+import FooterSection from "../../components/home-components/FooterSection";
+import CopyrightSection from "../../components/home-components/CopyrightSection";
 
 function Settings() {
     // destructured components
@@ -12,6 +14,12 @@ function Settings() {
     const { state } = useContext(AuthContext);
     const { signUserOut } = useSignOut();
     const { document } = useDocument('users', state.user!.uid);
+    const navigate = useNavigate();
+
+    const handleSignOut = async () => {
+        await signUserOut();
+        navigate('/');
+    }
 
     return (
         <Box display="flex" justifyContent="center" gap={6}>
@@ -77,6 +85,24 @@ function Settings() {
                             </Button>
                         )}
                     </NavLink>
+                    <Divider flexItem sx={{my: 2}} />
+                    <Box>
+                        <Button
+                            onClick={handleSignOut}
+                            variant="outlined"
+                            sx={{
+                                color: 'var(--secondary-color)',
+                                borderColor: 'var(--secondary-color)',
+                                '&:hover': {
+                                    color: 'var(--primary-color)',
+                                    borderColor: 'var(--primary-color)',
+                                    backgroundColor: '#F7EFEF'
+                                }
+                            }}
+                        >
+                            Sign out
+                        </Button>
+                    </Box>
                 </Box>
             </Box>
 

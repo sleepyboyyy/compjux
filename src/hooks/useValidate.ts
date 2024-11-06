@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 import {doc, onSnapshot, DocumentSnapshot} from "firebase/firestore";
 import {projectFirestore} from "../firebase/firebase";
-import {AdminData} from "../pages/createAdministrator/CreateAdministrator";
+import {AdminData} from "../pages/create-administrator/CreateAdministrator";
 import {ClientData} from "../pages/signup/Signup";
 
 export const useValidate = (collection:string, id:string | undefined) => {
