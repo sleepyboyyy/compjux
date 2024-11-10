@@ -65,8 +65,7 @@ function Rootlayout() {
     const navigationLinks = [
         { label: 'Home', to: '/' },
         { label: 'PC Store', to: '/pc-store' },
-        { label: 'Support', to: '/support' },
-        { label: 'Contact', to: '/contact' },
+        { label: 'Documentation', to: '/documentation' },
     ];
 
     return (

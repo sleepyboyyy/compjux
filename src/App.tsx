@@ -49,6 +49,10 @@ import AdminOrders from "./pages/admin-orders/AdminOrders";
 import OrdersDetailsPage from "./pages/admin-orders/admin-orders-order-details/OrdersDetailsPage";
 import AccountSettings from "./pages/account-settings/AccountSettings";
 import AccountOrders from "./pages/account-settings/AccountOrders";
+import DocumentationPage from "./pages/documentation/DocumentationPage";
+import AdminAccountSettings from "./pages/admin-account-settings/AdminAccountSettings";
+import AdminHelp from "./pages/admin-help/AdminHelp";
+import AdminStatistics from "./pages/admin-statistics/AdminStatistics";
 
 function App() {
     const { state } = useAuthContext();
@@ -157,12 +161,40 @@ function App() {
                         </ProtectedRoute>
                     }
                 />
+                
+                <Route
+                    path="admin-account-settings"
+                    element={
+                        <ProtectedRoute>
+                            <AdminAccountSettings />
+                        </ProtectedRoute>
+                    }
+                />
+
+                <Route
+                    path="admin-help"
+                    element={
+                        <ProtectedRoute>
+                            <AdminHelp />
+                        </ProtectedRoute>
+                    }
+                />
+
+                <Route
+                    path="admin-statistics"
+                    element={
+                        <ProtectedRoute>
+                            <AdminStatistics />
+                        </ProtectedRoute>
+                    }
+                />
 
                 <Route path="/" element={<Rootlayout/>}>
                     <Route index element={<Home />}/>
                     <Route path="pc-store" element={<PcStore />} />
                     <Route path="cart" element={<CartPage />} />
                     <Route path="checkout" element={<CheckoutPage />} />
+                    <Route path="documentation" element={<DocumentationPage />} />
                     <Route path="login" element={ state.user ? <Navigate to="/settings" replace /> : <Login/> }/>
                     <Route path="signup" element={ state.user ? <Navigate to="/settings" replace /> : <Signup/> }/>
                     <Route

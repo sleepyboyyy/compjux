@@ -1,5 +1,7 @@
 import {FormEvent, useState} from "react";
 import {useSignIn} from "../../hooks/useSignIn";
+import {IconButton, Tooltip} from "@mui/material";
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 
 
 function AdministratorLogin() {
@@ -19,7 +21,20 @@ function AdministratorLogin() {
 
     return (
         <div className="container-fluid w-100 vh-100 d-flex justify-content-center align-items-center">
-            <h2 className="me-5">Administrator Login</h2>
+            <h2 className="me-2">Administrator Login</h2>
+            <Tooltip
+                title={
+                    <div>
+                        <p>Email: <strong>test@dev.test</strong></p>
+                        <p>Pass: <strong>test123</strong></p>
+                    </div>
+                }
+                arrow
+            >
+                <IconButton>
+                    <InfoOutlinedIcon style={{ color: "var(--primary-color)" }} />
+                </IconButton>
+            </Tooltip>
             <form onSubmit={handleSubmit}>
                 <div className="mb-3">
                     <label htmlFor="devEmail" className="form-label">Admin E-Mail</label>
