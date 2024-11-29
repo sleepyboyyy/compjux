@@ -1,0 +1,32 @@
+.as_addItem_inputFormContainer {
+    margin: 64px 0;
+    width: 496px;
+}
+
+.as_addItem_inputFormContainer form > p {
+    color: var(--secondary-color);
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.as_addItem_textField_flexContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+.as_addItem_textField_flexContainer > * {
+    flex: 1 1 calc(50% - 16px); /* Subtract the gap to ensure two items per row */
+    min-width: 0;
+}
+
+.as_addItem_textField_flexContainer > :only-child {
+    flex: 1 1 100%;
+}
+
+.pwcSubClass {
+    font-weight: 500 !important;
+    color: var(--hardGray-color) !important;
+    font-size: 12px;
+}
